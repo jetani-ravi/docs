@@ -1,216 +1,1564 @@
 {
-  "openapi": "3.1.0",
+  "openapi": "3.0.0",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
-    "version": "1.0.0"
+    "title": "Voice-Agent",
+    "version": "1.0.0",
+    "description": ""
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
+      "url": "{{VOICE_AGENTS_URL}}"
+    },
     {
-      "bearerAuth": []
+      "url": "api.elevenlabs.io"
     }
   ],
   "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
+    "/api/v1/agent": {
+      "parameters": [],
+      "post": {
+        "summary": "Create agent",
         "parameters": [
           {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "example": "Bearer bn-b6e9b57a08354c7cb3f655a521a62533",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "agent_prompts": {
+                    "type": "object",
+                    "properties": {
+                      "task_1": {
+                        "type": "object",
+                        "properties": {
+                          "system_prompt": {
+                            "type": "string",
+                            "format": "style"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "agent_config": {
+                    "type": "object",
+                    "properties": {
+                      "agent_welcome_message": {
+                        "type": "string"
+                      },
+                      "agent_name": {
+                        "type": "string"
+                      },
+                      "agent_type": {
+                        "type": "string"
+                      },
+                      "tasks": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "tools_config": {
+                              "type": "object",
+                              "properties": {
+                                "output": {
+                                  "type": "object",
+                                  "properties": {
+                                    "format": {
+                                      "type": "string"
+                                    },
+                                    "provider": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "input": {
+                                  "type": "object",
+                                  "properties": {
+                                    "format": {
+                                      "type": "string"
+                                    },
+                                    "provider": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "synthesizer": {
+                                  "type": "object",
+                                  "properties": {
+                                    "audio_format": {
+                                      "type": "string"
+                                    },
+                                    "provider": {
+                                      "type": "string"
+                                    },
+                                    "stream": {
+                                      "type": "boolean"
+                                    },
+                                    "caching": {
+                                      "type": "boolean"
+                                    },
+                                    "provider_config": {
+                                      "type": "object",
+                                      "properties": {
+                                        "voice": {
+                                          "type": "string"
+                                        },
+                                        "model": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "buffer_size": {
+                                      "type": "integer"
+                                    }
+                                  }
+                                },
+                                "llm_agent": {
+                                  "type": "object",
+                                  "properties": {
+                                    "agent_type": {
+                                      "type": "string"
+                                    },
+                                    "agent_flow_type": {
+                                      "type": "string"
+                                    },
+                                    "llm_config": {
+                                      "type": "object",
+                                      "properties": {
+                                        "max_tokens": {
+                                          "type": "integer"
+                                        },
+                                        "presence_penalty": {
+                                          "type": "integer"
+                                        },
+                                        "top_p": {
+                                          "type": "number"
+                                        },
+                                        "request_json": {
+                                          "type": "boolean"
+                                        },
+                                        "context_data": {
+                                          "type": "object"
+                                        },
+                                        "min_p": {
+                                          "type": "number"
+                                        },
+                                        "frequency_penalty": {
+                                          "type": "integer"
+                                        },
+                                        "provider": {
+                                          "type": "string"
+                                        },
+                                        "top_k": {
+                                          "type": "integer"
+                                        },
+                                        "temperature": {
+                                          "type": "number"
+                                        },
+                                        "model": {
+                                          "type": "string"
+                                        },
+                                        "family": {
+                                          "type": "string"
+                                        },
+                                        "agent_information": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "transcriber": {
+                                  "type": "object",
+                                  "properties": {
+                                    "sampling_rate": {
+                                      "type": "integer"
+                                    },
+                                    "endpointing": {
+                                      "type": "integer"
+                                    },
+                                    "task": {
+                                      "type": "string"
+                                    },
+                                    "keywords": {
+                                      "type": "string"
+                                    },
+                                    "stream": {
+                                      "type": "boolean"
+                                    },
+                                    "provider": {
+                                      "type": "string"
+                                    },
+                                    "model": {
+                                      "type": "string"
+                                    },
+                                    "language": {
+                                      "type": "string"
+                                    },
+                                    "encoding": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "api_tools": {
+                                  "nullable": true
+                                }
+                              }
+                            },
+                            "task_config": {
+                              "type": "object",
+                              "properties": {
+                                "backchanneling": {
+                                  "type": "boolean"
+                                },
+                                "optimize_latency": {
+                                  "type": "boolean"
+                                },
+                                "incremental_delay": {
+                                  "type": "integer"
+                                },
+                                "ambient_noise_track": {
+                                  "type": "string"
+                                },
+                                "trigger_user_online_message_after": {
+                                  "type": "integer"
+                                },
+                                "check_if_user_online": {
+                                  "type": "boolean"
+                                },
+                                "hangup_after_LLMCall": {
+                                  "type": "boolean"
+                                },
+                                "call_terminate": {
+                                  "type": "integer"
+                                },
+                                "hangup_after_silence": {
+                                  "type": "integer"
+                                },
+                                "ambient_noise": {
+                                  "type": "boolean"
+                                },
+                                "use_fillers": {
+                                  "type": "boolean"
+                                },
+                                "interruption_backoff_period": {
+                                  "type": "integer"
+                                },
+                                "backchanneling_start_delay": {
+                                  "type": "integer"
+                                },
+                                "call_cancellation_prompt": {
+                                  "type": "string"
+                                },
+                                "check_user_online_message": {
+                                  "type": "string"
+                                },
+                                "number_of_words_for_interruption": {
+                                  "type": "integer"
+                                },
+                                "backchanneling_message_gap": {
+                                  "type": "integer"
+                                },
+                                "call_hangup_message": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "task_type": {
+                              "type": "string"
+                            },
+                            "toolchain": {
+                              "type": "object",
+                              "properties": {
+                                "execution": {
+                                  "type": "string"
+                                },
+                                "pipelines": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
             }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+          }
+        }
+      }
+    },
+    "/api/v1/agent/{{newAgent_id}}": {
+      "parameters": [],
+      "get": {
+        "summary": "Get agent",
+        "parameters": [],
+        "responses": {}
+      },
+      "put": {
+        "summary": "Update agent",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string"
+                  },
+                  "agent_config": {
+                    "type": "object",
+                    "properties": {
+                      "agent_name": {
+                        "type": "string"
+                      },
+                      "agent_type": {
+                        "type": "string"
+                      },
+                      "tasks": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "tools_config": {
+                              "type": "object",
+                              "properties": {
+                                "llm_agent": {
+                                  "type": "object",
+                                  "properties": {
+                                    "agent_flow_type": {
+                                      "type": "string"
+                                    },
+                                    "agent_type": {
+                                      "type": "string"
+                                    },
+                                    "routes": {
+                                      "nullable": true
+                                    },
+                                    "llm_config": {
+                                      "type": "object",
+                                      "properties": {
+                                        "model": {
+                                          "type": "string"
+                                        },
+                                        "max_tokens": {
+                                          "type": "integer"
+                                        },
+                                        "family": {
+                                          "type": "string"
+                                        },
+                                        "temperature": {
+                                          "type": "number"
+                                        },
+                                        "request_json": {
+                                          "type": "boolean"
+                                        },
+                                        "stop": {
+                                          "nullable": true
+                                        },
+                                        "top_k": {
+                                          "type": "integer"
+                                        },
+                                        "top_p": {
+                                          "type": "number"
+                                        },
+                                        "min_p": {
+                                          "type": "number"
+                                        },
+                                        "frequency_penalty": {
+                                          "type": "integer"
+                                        },
+                                        "presence_penalty": {
+                                          "type": "integer"
+                                        },
+                                        "provider": {
+                                          "type": "string"
+                                        },
+                                        "base_url": {
+                                          "nullable": true
+                                        },
+                                        "routes": {
+                                          "nullable": true
+                                        },
+                                        "agent_flow_type": {
+                                          "type": "string"
+                                        },
+                                        "extraction_details": {
+                                          "nullable": true
+                                        },
+                                        "summarization_details": {
+                                          "nullable": true
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "synthesizer": {
+                                  "type": "object",
+                                  "properties": {
+                                    "provider": {
+                                      "type": "string"
+                                    },
+                                    "provider_config": {
+                                      "type": "object",
+                                      "properties": {
+                                        "voice": {
+                                          "type": "string"
+                                        },
+                                        "model": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "stream": {
+                                      "type": "boolean"
+                                    },
+                                    "buffer_size": {
+                                      "type": "integer"
+                                    },
+                                    "audio_format": {
+                                      "type": "string"
+                                    },
+                                    "caching": {
+                                      "type": "boolean"
+                                    }
+                                  }
+                                },
+                                "transcriber": {
+                                  "type": "object",
+                                  "properties": {
+                                    "model": {
+                                      "type": "string"
+                                    },
+                                    "language": {
+                                      "type": "string"
+                                    },
+                                    "stream": {
+                                      "type": "boolean"
+                                    },
+                                    "sampling_rate": {
+                                      "type": "integer"
+                                    },
+                                    "encoding": {
+                                      "type": "string"
+                                    },
+                                    "endpointing": {
+                                      "type": "integer"
+                                    },
+                                    "keywords": {
+                                      "type": "string"
+                                    },
+                                    "task": {
+                                      "type": "string"
+                                    },
+                                    "provider": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "input": {
+                                  "type": "object",
+                                  "properties": {
+                                    "provider": {
+                                      "type": "string"
+                                    },
+                                    "format": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "output": {
+                                  "type": "object",
+                                  "properties": {
+                                    "provider": {
+                                      "type": "string"
+                                    },
+                                    "format": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "api_tools": {
+                                  "type": "object",
+                                  "properties": {
+                                    "tools": {
+                                      "type": "array",
+                                      "items": {}
+                                    },
+                                    "tools_params": {
+                                      "type": "object"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "toolchain": {
+                              "type": "object",
+                              "properties": {
+                                "execution": {
+                                  "type": "string"
+                                },
+                                "pipelines": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "task_type": {
+                              "type": "string"
+                            },
+                            "task_config": {
+                              "type": "object",
+                              "properties": {
+                                "optimize_latency": {
+                                  "type": "boolean"
+                                },
+                                "hangup_after_silence": {
+                                  "type": "integer"
+                                },
+                                "incremental_delay": {
+                                  "type": "integer"
+                                },
+                                "number_of_words_for_interruption": {
+                                  "type": "integer"
+                                },
+                                "interruption_backoff_period": {
+                                  "type": "integer"
+                                },
+                                "hangup_after_LLMCall": {
+                                  "type": "boolean"
+                                },
+                                "call_cancellation_prompt": {
+                                  "type": "string"
+                                },
+                                "backchanneling": {
+                                  "type": "boolean"
+                                },
+                                "backchanneling_message_gap": {
+                                  "type": "integer"
+                                },
+                                "backchanneling_start_delay": {
+                                  "type": "integer"
+                                },
+                                "ambient_noise": {
+                                  "type": "boolean"
+                                },
+                                "ambient_noise_track": {
+                                  "type": "string"
+                                },
+                                "call_terminate": {
+                                  "type": "integer"
+                                },
+                                "use_fillers": {
+                                  "type": "boolean"
+                                },
+                                "trigger_user_online_message_after": {
+                                  "type": "integer"
+                                },
+                                "check_user_online_message": {
+                                  "type": "string"
+                                },
+                                "check_if_user_online": {
+                                  "type": "boolean"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "agent_welcome_message": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "agent_prompts": {
+                    "type": "object",
+                    "properties": {
+                      "task_1": {
+                        "type": "object",
+                        "properties": {
+                          "system_prompt": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "assistant_status": {
+                    "type": "string"
+                  },
+                  "user_id": {
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "type": "string",
+                    "format": "style"
+                  },
+                  "updated_at": {
+                    "type": "string"
+                  },
+                  "agent_id": {
+                    "type": "string"
+                  }
                 }
               }
             }
           }
         }
       },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
+      "delete": {
+        "summary": "Delete agent",
+        "parameters": [],
+        "responses": {}
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+    "/api/v1/agent/all": {
+      "parameters": [],
+      "get": {
+        "summary": "List agents",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "example": "2",
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "integer"
             }
           }
         ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
+        "responses": {}
+      }
+    },
+    "/api/v1/call": {
+      "parameters": [],
+      "post": {
+        "summary": "Initiate Call",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "example": "{{user_id}}",
+            "schema": {
+              "type": "string"
+            }
           },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+          {
+            "name": "org_id",
+            "in": "query",
+            "required": false,
+            "example": "{{org_id}}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "agent_id": {
+                    "type": "string"
+                  },
+                  "recipient_phone_number": {
+                    "type": "string",
+                    "format": "utc-millisec"
+                  }
                 }
               }
             }
           }
         }
       }
-    }
-  },
-  "webhooks": {
-    "/plant/webhook": {
+    },
+    "/api/v1/execution/all": {
+      "parameters": [],
+      "get": {
+        "summary": "List agent execution",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "example": "pending",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "example": "100",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "agent_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/execution/{{execution_id}}/": {
+      "parameters": [],
+      "get": {
+        "summary": "Get execution",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/api/v1/user/signup": {
+      "parameters": [],
       "post": {
-        "description": "Information about a new plant added to the store",
+        "summary": "Signup",
+        "parameters": [],
+        "responses": {},
         "requestBody": {
-          "description": "Plant added to the store",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "confirmPassword": {
+                    "type": "string"
+                  },
+                  "organization_name": {
+                    "type": "string"
+                  }
+                }
               }
             }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Return a 200 status to indicate that the data was received successfully"
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
           }
         }
       }
     },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+    "/api/v1/user/login": {
+      "parameters": [],
+      "post": {
+        "summary": "Login",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/me": {
+      "parameters": [],
+      "get": {
+        "summary": "Me",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/user/{{newUser_id}}": {
+      "parameters": [],
+      "put": {
+        "summary": "Update User",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete User",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/all": {
+      "parameters": [],
+      "get": {
+        "summary": "User List",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/verify-email": {
+      "parameters": [],
+      "post": {
+        "summary": "Verify Email",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/knowledge-base/upload": {
+      "parameters": [],
+      "post": {
+        "summary": "Create Knowledge base",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/api/v1/knowledge-base/all": {
+      "parameters": [],
+      "get": {
+        "summary": "List knowledgebase",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/api/v1/knowledge-base/{{newKnowledgeBase_id}}": {
+      "parameters": [],
+      "get": {
+        "summary": "Get Knowledgebase",
+        "parameters": [],
+        "responses": {}
+      },
+      "delete": {
+        "summary": "Delete Knowledgebase",
+        "parameters": [],
+        "responses": {}
+      },
+      "put": {
+        "summary": "Update Knowledgebase",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/phone-numbers/sync": {
+      "parameters": [],
+      "post": {
+        "summary": "Sync Numbers",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/phone-numbers/available": {
+      "parameters": [],
+      "get": {
+        "summary": "Available Numbers",
+        "parameters": [
+          {
+            "name": "pattern",
+            "in": "query",
+            "required": false,
+            "example": "786",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "area_code",
+            "in": "query",
+            "required": false,
+            "example": "1",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "example": "twilio",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "example": "US",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/providers/system": {
+      "parameters": [],
+      "post": {
+        "summary": "Create System Provider",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  },
+                  "models": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "label": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        },
+                        "price": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "credentials": {
+                    "type": "object"
+                  },
+                  "show_in_providers": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List System Providers",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/api/v1/providers/system/{{systemProvider_id}}": {
+      "parameters": [],
+      "put": {
+        "summary": "Update System Provider",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete System Provider",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/providers/user": {
+      "parameters": [],
+      "post": {
+        "summary": "Create User Provider",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "provider_id": {
+                    "type": "string"
+                  },
+                  "credentials": {
+                    "type": "object",
+                    "properties": {
+                      "account_sid": {
+                        "type": "string"
+                      },
+                      "auth_token": {
+                        "type": "string"
+                      },
+                      "phone_number": {
+                        "type": "string",
+                        "format": "utc-millisec"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List User Providers",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/providers/user/{{newProvider_id}}": {
+      "parameters": [],
+      "put": {
+        "summary": "Update User Provider",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "credentials": {
+                    "type": "object",
+                    "properties": {
+                      "account_sid": {
+                        "type": "string"
+                      },
+                      "auth_token": {
+                        "type": "string"
+                      },
+                      "phone_number": {
+                        "type": "string",
+                        "format": "utc-millisec"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete User Provider",
+        "parameters": [],
+        "responses": {}
+      },
+      "get": {
+        "summary": "Get User Provider",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/providers": {
+      "parameters": [],
+      "get": {
+        "summary": "List Providers with Connections",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/voices/fetch/polly": {
+      "parameters": [],
+      "post": {
+        "summary": "Fetch Voices from Providers",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/api/v1/voices": {
+      "parameters": [],
+      "get": {
+        "summary": "List Voices",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "example": "132",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "provider",
+            "in": "query",
+            "required": false,
+            "example": "elevenlabs",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/voices/67a6085623d73e2e471fe548/organization": {
+      "parameters": [],
+      "post": {
+        "summary": "Add Voice To Organization",
+        "parameters": [],
+        "responses": {}
+      },
+      "delete": {
+        "summary": "Remove Voice From Organization",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/api/v1/voices/67bd8dc213a858bd41fa337d/set-default": {
+      "parameters": [],
+      "post": {
+        "summary": "Set Voice To Default",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "is_default": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/voices": {
+      "parameters": [],
+      "get": {
+        "summary": "New Request",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "example": "Token 04b0c30410dd775a7d1b8d9781726413ebd285b6",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": false,
+            "example": "sk_car_AKLp2Y2-VR0WVlLIQpjoa",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Cartesia-Version",
+            "in": "header",
+            "required": false,
+            "example": "2024-06-10",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "xi-api-key",
+            "in": "header",
+            "required": false,
+            "example": "sk_37f7ee6c8500b3162b1594ec49b5b1d1be376ff18431b8db",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/organizations": {
+      "parameters": [],
+      "post": {
+        "summary": "Create Organization",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/organizations/{{newOrganization_id}}": {
+      "parameters": [],
+      "put": {
+        "summary": "Update Organization",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/organizations/681c3d2c14144e87791de859": {
+      "parameters": [],
+      "delete": {
+        "summary": "Delete Organization",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/organizations/all": {
+      "parameters": [],
+      "get": {
+        "summary": "Get Organizations",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/api/v1/organizations/active": {
+      "parameters": [],
+      "get": {
+        "summary": "Get Active Organization Details",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/organizations/681c3e0a14144e87791de85a/set-active": {
+      "parameters": [],
+      "post": {
+        "summary": "Set Active Organization",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/configs/transcribers/sync": {
+      "parameters": [],
+      "post": {
+        "summary": "Fetch Transcribers",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/api/v1/configs/transcribers": {
+      "parameters": [],
+      "get": {
+        "summary": "List Transcribers",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/api/v1/api-keys": {
+      "parameters": [],
+      "post": {
+        "summary": "Create API Key",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "expires_at": {
+                    "type": "string",
+                    "format": "utc-millisec"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List API Keys",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/api/v1/api-keys/{{newApiKey_id}}": {
+      "parameters": [],
+      "put": {
+        "summary": "Update Api Key",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete API Key",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
       }
     }
   }
