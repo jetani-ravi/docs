@@ -1,28 +1,27 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: 'Introduction to the Voice Nova API and how to get started'
 ---
 
 <Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
+  Welcome to the Voice Nova API documentation! Here you'll find everything you need to integrate Voice Nova's AI-powered voice automation into your applications and workflows.
 </Note>
 
-## Welcome
+## What is the Voice Nova API?
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+The Voice Nova API allows you to programmatically create, manage, and deploy intelligent voice agents for your business. Use our endpoints to automate calls, manage agent templates, retrieve analytics, and more.
 
 <Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
+  title="Voice Nova OpenAPI Specification"
+  icon="phone"
+  href="https://github.com/your-org/voice-nova-openapi.json"
 >
   View the OpenAPI specification file
 </Card>
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All API endpoints require authentication using Bearer tokens. You can generate and manage your API keys in your Voice Nova dashboard.
 
 ```json
 "security": [
@@ -30,4 +29,10 @@ All API endpoints are authenticated using Bearer tokens and picked up from the s
     "bearerAuth": []
   }
 ]
+```
+
+Include your API key in the `Authorization` header of every request:
+
+```http
+Authorization: Bearer <BEARER_TOKEN> 
 ```
