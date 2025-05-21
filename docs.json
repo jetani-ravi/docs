@@ -44,12 +44,43 @@
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "API Endpoints",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              {
+                "group": "Agent",
+                "pages": [
+                  "api-reference/endpoint/agent/get-agent",
+                  "api-reference/endpoint/agent/create-agent",
+                  "api-reference/endpoint/agent/update-agent",
+                  "api-reference/endpoint/agent/delete-agent",
+                  "api-reference/endpoint/agent/list-agents"
+                ]
+              },
+              {
+                "group": "Call",
+                "pages": [
+                  "api-reference/endpoint/call/initiate-call"
+                ]
+              },
+              {
+                "group": "Call History",
+                "pages": [
+                  "api-reference/endpoint/callHistory/get-execution",
+                  "api-reference/endpoint/callHistory/list-execution"
+                ]
+              },
+              {
+                "group": "Users",
+                "pages": [
+                  "api-reference/endpoint/users/signup",
+                  "api-reference/endpoint/users/login",
+                  "api-reference/endpoint/users/me",
+                  "api-reference/endpoint/users/update-user",
+                  "api-reference/endpoint/users/delete-user",
+                  "api-reference/endpoint/users/user-list",
+                  "api-reference/endpoint/users/verify-email"
+                ]
+              }
             ]
           }
         ]

@@ -3,42 +3,336 @@
   "info": {
     "title": "Voice-Agent",
     "version": "1.0.0",
-    "description": ""
+    "description": "Voice-Agent API"
   },
   "servers": [
     {
-      "url": "{{VOICE_AGENTS_URL}}"
-    },
-    {
-      "url": "api.elevenlabs.io"
+      "url": "https://voice-agents.cloudmatetechnologies.com"
     }
   ],
   "paths": {
     "/api/v1/agent": {
-      "parameters": [],
-      "post": {
-        "summary": "Create agent",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
-            "required": false,
-            "example": "Bearer bn-b6e9b57a08354c7cb3f655a521a62533",
+          "required": true,
+          "description": "Bearer token for authentication",
             "schema": {
               "type": "string"
-            }
           },
+          "example": "Bearer <token>"
+        }
+      ],
+      "post": {
+        "summary": "Create agent",
+        "parameters": [
           {
             "name": "Content-Type",
             "in": "header",
             "required": false,
-            "example": "application/json",
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "application/json"
           }
         ],
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "Agent created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates if the agent was created successfully.",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A message describing the result.",
+                      "example": "Agent Created Successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Agent details",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "Unique identifier for the agent.",
+                          "example": "682b28b95a99247b2f6ca004"
+                        },
+                        "agent_config": {
+                          "type": "object",
+                          "description": "Configuration details for the agent.",
+                          "properties": {
+                            "agent_name": {
+                              "type": "string",
+                              "description": "Human-readable agent name.",
+                              "example": "New Agent"
+                            },
+                            "agent_type": {
+                              "type": "string",
+                              "description": "Type of agent.",
+                              "example": "conversation"
+                            },
+                            "tasks": {
+                              "type": "array",
+                              "description": "List of tasks assigned to the agent.",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "task_type": {
+                                    "type": "string",
+                                    "description": "Type of the task.",
+                                    "example": "conversation"
+                                  },
+                                  "toolchain": {
+                                    "type": "object",
+                                    "description": "Toolchain configuration for the task.",
+                                    "properties": {
+                                      "execution": {
+                                        "type": "string",
+                                        "description": "Execution mode for the toolchain.",
+                                        "example": "parallel"
+                                      },
+                                      "pipelines": {
+                                        "type": "array",
+                                        "description": "Pipelines for the toolchain.",
+                                        "items": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string"
+                                          },
+                                          "example": ["transcriber", "llm", "synthesizer"]
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "tools_config": {
+                                    "type": "object",
+                                    "description": "Configuration for tools used in the task. (Omitted for brevity)"
+                                  },
+                                  "task_config": {
+                                    "type": "object",
+                                    "description": "Configuration for the task. (Omitted for brevity)"
+                                  }
+                                }
+                              }
+                            },
+                            "agent_welcome_message": {
+                              "type": "string",
+                              "description": "Welcome message for the agent.",
+                              "example": "Hello, This is survey call from bank of india"
+                            }
+                          }
+                        },
+                        "agent_prompts": {
+                          "type": "object",
+                          "description": "Prompts used by the agent.",
+                          "properties": {
+                            "task_1": {
+                              "type": "object",
+                              "properties": {
+                                "system_prompt": {
+                                  "type": "string",
+                                  "description": "System prompt for the agent.",
+                                  "example": "Your name is Lily Jay, a friendly survey agent at Bank of India. ..."
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "assistant_status": {
+                          "type": "string",
+                          "description": "Current status of the agent.",
+                          "example": "seeding"
+                        },
+                        "org_id": {
+                          "type": "string",
+                          "description": "Organization ID.",
+                          "example": "681ca52f14144e87791de891"
+                        },
+                        "agent_id": {
+                          "type": "string",
+                          "description": "Agent ID.",
+                          "example": "e1c56ce5-0c0a-4f98-b06b-eebf3961e504"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "message": "Agent Created Successfully",
+                  "data": {
+                    "_id": "682b28b95a99247b2f6ca004",
+                    "agent_config": {
+                      "agent_name": "New Agent",
+                      "agent_type": "conversation",
+                      "tasks": [
+                        {
+                          "tools_config": {
+                            "llm_agent": {
+                              "agent_flow_type": "streaming",
+                              "agent_type": "simple_llm_agent",
+                              "routes": null,
+                              "llm_config": {
+                                "model": "gpt-3.5-turbo",
+                                "max_tokens": 150,
+                                "family": "openai",
+                                "temperature": 0.2,
+                                "request_json": false,
+                                "stop": null,
+                                "top_k": 0,
+                                "top_p": 0.9,
+                                "min_p": 0.1,
+                                "frequency_penalty": 0.0,
+                                "presence_penalty": 0.0,
+                                "provider": "openai",
+                                "base_url": null,
+                                "routes": null,
+                                "agent_flow_type": "streaming",
+                                "extraction_details": null,
+                                "summarization_details": null
+                              }
+                            },
+                            "synthesizer": {
+                              "provider": "deepgram",
+                              "provider_config": {
+                                "voice": "Asteria",
+                                "model": "aura-asteria-en"
+                              },
+                              "stream": true,
+                              "buffer_size": 150,
+                              "audio_format": "wav",
+                              "caching": true
+                            },
+                            "transcriber": {
+                              "model": "nova-2",
+                              "language": "en",
+                              "stream": true,
+                              "sampling_rate": 16000,
+                              "encoding": "linear16",
+                              "endpointing": 700,
+                              "keywords": "",
+                              "task": "transcribe",
+                              "provider": "deepgram"
+                            },
+                            "input": {
+                              "provider": "twilio",
+                              "format": "wav"
+                            },
+                            "output": {
+                              "provider": "twilio",
+                              "format": "wav"
+                            },
+                            "api_tools": null
+                          },
+                          "toolchain": {
+                            "execution": "parallel",
+                            "pipelines": [
+                              [
+                                "transcriber",
+                                "llm",
+                                "synthesizer"
+                              ]
+                            ]
+                          },
+                          "task_type": "conversation",
+                          "task_config": {
+                            "voicemail": false,
+                            "optimize_latency": true,
+                            "hangup_after_silence": 10,
+                            "incremental_delay": 1200,
+                            "number_of_words_for_interruption": 2,
+                            "interruption_backoff_period": 0,
+                            "hangup_after_LLMCall": false,
+                            "call_cancellation_prompt": "",
+                            "call_hangup_message": "",
+                            "backchanneling": false,
+                            "backchanneling_message_gap": 5,
+                            "backchanneling_start_delay": 5,
+                            "ambient_noise": false,
+                            "ambient_noise_track": "office-ambience",
+                            "call_terminate": 300,
+                            "use_fillers": false,
+                            "trigger_user_online_message_after": 6,
+                            "check_user_online_message": "Hey, are you still there",
+                            "check_if_user_online": true,
+                            "generate_precise_transcript": false
+                          }
+                        }
+                      ],
+                      "agent_welcome_message": "Hello, This is survey call from bank of india"
+                    },
+                    "agent_prompts": {
+                      "task_1": {
+                        "system_prompt": "Your name is Lily Jay, a friendly survey agent at Bank of India.\n\nYou will keep your sentences short, easy to follow, and always stay on topic. Never reply with more than 2 sentences. Your role is to gather feedback from customers who have used Business Loans, record their NPS score (0–10), and understand their experience.\n\nBe warm, empathetic, and professional throughout. Use conversational openers like 'Got it,' 'Hmm,' or 'Makes sense,' to keep the interaction natural and engaging. Avoid slang or repetitive filler words.\n\nGuidelines:\n\nIntroduce yourself and politely ask if they have used Business Loans and can participate in a quick survey.\nDo not repeat questions already asked.\nIf the customer is unfamiliar with Bank of India, respond:\n\"We provide business and personal loans and value customer feedback to improve our services.\"\n\nFeedback Questions:\n\nAsk for their overall satisfaction with Business Loans (NPS: 0–10).\nAsk what they liked most about the product and encourage specific details.\nAsk if the loan process (application, approval, or repayment) met their expectations.\nAsk how they found the interest rates and repayment terms.\nAsk if they faced any issues during the loan process or with customer service.\nInquire if they would recommend the Business Loan to others and why.\n\nDissatisfied Scenario:\n\nIf the customer rates below 5 or shares dissatisfaction:\n\"I'm really sorry to hear that. Could you tell me more about what went wrong so we can improve?\"\nEmpathize: \"I completely understand how frustrating that must have been.\"\nAssure: \"Your feedback is very important, and I'll make sure it reaches the right team to address this.\"\nIf the issue is about customer service: \"I apologize for the inconvenience you experienced. We're working to improve our service and ensure a better experience in the future.\"\n\nClosing:\n\nThank the customer sincerely for their input:\n\"Thank you so much for your time and feedback. It helps us improve and serve you better. Have a great day!\"\n\nTone:\nMaintain a warm, professional, and empathetic tone throughout. Ensure customers feel heard, valued, and appreciated during the conversation."
+                      }
+                    },
+                    "assistant_status": "seeding",
+                    "org_id": "681ca52f14144e87791de891",
+                    "agent_id": "e1c56ce5-0c0a-4f98-b06b-eebf3961e504"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "loc": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "msg": {
+                            "type": "string"
+                          },
+                          "input": {
+                            "nullable": true
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "detail": [
+                    {
+                      "type": "missing",
+                      "loc": [
+                        "body"
+                      ],
+                      "msg": "Field required",
+                      "input": null,
+                      "url": "https://errors.pydantic.dev/2.5/v/missing"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
         "requestBody": {
           "content": {
             "application/json": {
@@ -148,7 +442,7 @@
                                           "type": "integer"
                                         },
                                         "presence_penalty": {
-                                          "type": "integer"
+                                          "type": "number"
                                         },
                                         "top_p": {
                                           "type": "number"
@@ -163,7 +457,7 @@
                                           "type": "number"
                                         },
                                         "frequency_penalty": {
-                                          "type": "integer"
+                                          "type": "number"
                                         },
                                         "provider": {
                                           "type": "string"
@@ -315,26 +609,193 @@
         }
       }
     },
-    "/api/v1/agent/{{newAgent_id}}": {
-      "parameters": [],
+    "/api/v1/agent/{newAgent_id}": {
+      "parameters": [
+        {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "description": "Bearer token for authentication",
+          "schema": {
+            "type": "string"
+          },
+          "example": "Bearer <token>"
+        },
+        {
+          "name": "newAgent_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the agent to retrieve",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "summary": "Get agent",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Agent retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates if the agent was retrieved successfully.",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A message describing the result.",
+                      "example": "Agent fetched successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Agent details",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "Unique identifier for the agent.",
+                          "example": "682b28b95a99247b2f6ca004"
+                        },
+                        "agent_config": {
+                          "type": "object",
+                          "description": "Configuration details for the agent.",
+                          "properties": {
+                            "agent_name": {
+                              "type": "string",
+                              "description": "Human-readable agent name.",
+                              "example": "New Agent"
+                            },
+                            "agent_type": {
+                              "type": "string",
+                              "description": "Type of agent.",
+                              "example": "conversation"
+                            },
+                            "tasks": {
+                              "type": "array",
+                              "description": "List of tasks assigned to the agent.",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "task_type": {
+                                    "type": "string",
+                                    "description": "Type of the task.",
+                                    "example": "conversation"
+                                  },
+                                  "toolchain": {
+                                    "type": "object",
+                                    "description": "Toolchain configuration for the task.",
+                                    "properties": {
+                                      "execution": {
+                                        "type": "string",
+                                        "description": "Execution mode for the toolchain.",
+                                        "example": "parallel"
+                                      },
+                                      "pipelines": {
+                                        "type": "array",
+                                        "description": "Pipelines for the toolchain.",
+                                        "items": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string"
+                                          },
+                                          "example": ["transcriber", "llm", "synthesizer"]
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "tools_config": {
+                                    "type": "object",
+                                    "description": "Configuration for tools used in the task. (Omitted for brevity)"
+                                  },
+                                  "task_config": {
+                                    "type": "object",
+                                    "description": "Configuration for the task. (Omitted for brevity)"
+                                  }
+                                }
+                              }
+                            },
+                            "agent_welcome_message": {
+                              "type": "string",
+                              "description": "Welcome message for the agent.",
+                              "example": "Hello, This is survey call from bank of india"
+                            }
+                          }
+                        },
+                        "agent_prompts": {
+                          "type": "object",
+                          "description": "Prompts used by the agent.",
+                          "properties": {
+                            "task_1": {
+                              "type": "object",
+                              "properties": {
+                                "system_prompt": {
+                                  "type": "string",
+                                  "description": "System prompt for the agent.",
+                                  "example": "Your name is Lily Jay, a friendly survey agent at Bank of India. ..."
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "assistant_status": {
+                          "type": "string",
+                          "description": "Current status of the agent.",
+                          "example": "seeding"
+                        },
+                        "org_id": {
+                          "type": "string",
+                          "description": "Organization ID.",
+                          "example": "681ca52f14144e87791de891"
+                        },
+                       
+                        "agent_id": {
+                          "type": "string",
+                          "description": "Agent ID.",
+                          "example": "e1c56ce5-0c0a-4f98-b06b-eebf3961e504"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string",
+                      "example": "Method Not Allowed"
+                    }
+                  }
+                },
+                "example": {
+                  "detail": "Method Not Allowed"
+                }
+              }
+            }
+          }
+        }
       },
       "put": {
         "summary": "Update agent",
         "parameters": [],
-        "responses": {},
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "_id": {
-                    "type": "string"
-                  },
                   "agent_config": {
                     "type": "object",
                     "properties": {
@@ -395,10 +856,10 @@
                                           "type": "number"
                                         },
                                         "frequency_penalty": {
-                                          "type": "integer"
+                                          "type": "number"
                                         },
                                         "presence_penalty": {
-                                          "type": "integer"
+                                          "type": "number"
                                         },
                                         "provider": {
                                           "type": "string"
@@ -544,6 +1005,9 @@
                             "task_config": {
                               "type": "object",
                               "properties": {
+                                "voicemail": {
+                                  "type": "boolean"
+                                },
                                 "optimize_latency": {
                                   "type": "boolean"
                                 },
@@ -563,6 +1027,10 @@
                                   "type": "boolean"
                                 },
                                 "call_cancellation_prompt": {
+                                  "type": "string"
+                                },
+                                "call_hangup_message": {
+                                  "nullable": true,
                                   "type": "string"
                                 },
                                 "backchanneling": {
@@ -594,6 +1062,9 @@
                                 },
                                 "check_if_user_online": {
                                   "type": "boolean"
+                                },
+                                "generate_precise_transcript": {
+                                  "type": "boolean"
                                 }
                               }
                             }
@@ -617,23 +1088,599 @@
                         }
                       }
                     }
-                  },
-                  "assistant_status": {
-                    "type": "string"
-                  },
-                  "user_id": {
-                    "type": "string"
-                  },
-                  "created_at": {
-                    "type": "string",
-                    "format": "style"
-                  },
-                  "updated_at": {
-                    "type": "string"
-                  },
-                  "agent_id": {
-                    "type": "string"
                   }
+                }
+              },
+              "example": {
+                "agent_config": {
+                  "agent_name": "New Agent updated",
+                  "agent_type": "conversation",
+                  "tasks": [
+                    {
+                      "tools_config": {
+                        "llm_agent": {
+                          "agent_flow_type": "streaming",
+                          "agent_type": "simple_llm_agent",
+                          "routes": null,
+                          "llm_config": {
+                            "model": "gpt-3.5-turbo",
+                            "max_tokens": 150,
+                            "family": "openai",
+                            "temperature": 0.2,
+                            "request_json": false,
+                            "stop": null,
+                            "top_k": 0,
+                            "top_p": 0.9,
+                            "min_p": 0.1,
+                            "frequency_penalty": 0.0,
+                            "presence_penalty": 0.0,
+                            "provider": "openai",
+                            "base_url": null,
+                            "routes": null,
+                            "agent_flow_type": "streaming",
+                            "extraction_details": null,
+                            "summarization_details": null
+                          }
+                        },
+                        "synthesizer": {
+                          "provider": "deepgram",
+                          "provider_config": {
+                            "voice": "Asteria",
+                            "model": "aura-asteria-en"
+                          },
+                          "stream": true,
+                          "buffer_size": 150,
+                          "audio_format": "wav",
+                          "caching": true
+                        },
+                        "transcriber": {
+                          "model": "nova-2",
+                          "language": "en",
+                          "stream": true,
+                          "sampling_rate": 16000,
+                          "encoding": "linear16",
+                          "endpointing": 700,
+                          "keywords": "",
+                          "task": "transcribe",
+                          "provider": "deepgram"
+                        },
+                        "input": {
+                          "provider": "twilio",
+                          "format": "wav"
+                        },
+                        "output": {
+                          "provider": "twilio",
+                          "format": "wav"
+                        },
+                        "api_tools": {
+                          "tools": [],
+                          "tools_params": {}
+                        }
+                      },
+                      "toolchain": {
+                        "execution": "parallel",
+                        "pipelines": [
+                          [
+                            "transcriber",
+                            "llm",
+                            "synthesizer"
+                          ]
+                        ]
+                      },
+                      "task_type": "conversation",
+                      "task_config": {
+                        "voicemail": false,
+                        "optimize_latency": true,
+                        "hangup_after_silence": 10,
+                        "incremental_delay": 1200,
+                        "number_of_words_for_interruption": 2,
+                        "interruption_backoff_period": 0,
+                        "hangup_after_LLMCall": false,
+                        "call_cancellation_prompt": "",
+                        "call_hangup_message": null,
+                        "backchanneling": false,
+                        "backchanneling_message_gap": 5,
+                        "backchanneling_start_delay": 5,
+                        "ambient_noise": false,
+                        "ambient_noise_track": "office-ambience",
+                        "call_terminate": 300,
+                        "use_fillers": false,
+                        "trigger_user_online_message_after": 6,
+                        "check_user_online_message": "Hey, are you still there",
+                        "check_if_user_online": true,
+                        "generate_precise_transcript": false
+                      }
+                    }
+                  ],
+                  "agent_welcome_message": "Hello, how can I help you today?"
+                },
+                "agent_prompts": {
+                  "task_1": {
+                    "system_prompt": "You are a helpful assistant."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Agent updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "agent_config": {
+                          "type": "object",
+                          "properties": {
+                            "agent_name": {
+                              "type": "string"
+                            },
+                            "agent_type": {
+                              "type": "string"
+                            },
+                            "tasks": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "tools_config": {
+                                    "type": "object",
+                                    "properties": {
+                                      "llm_agent": {
+                                        "type": "object",
+                                        "properties": {
+                                          "agent_flow_type": {
+                                            "type": "string"
+                                          },
+                                          "agent_type": {
+                                            "type": "string"
+                                          },
+                                          "routes": {
+                                            "nullable": true
+                                          },
+                                          "llm_config": {
+                                            "type": "object",
+                                            "properties": {
+                                              "model": {
+                                                "type": "string"
+                                              },
+                                              "max_tokens": {
+                                                "type": "integer"
+                                              },
+                                              "family": {
+                                                "type": "string"
+                                              },
+                                              "temperature": {
+                                                "type": "number"
+                                              },
+                                              "request_json": {
+                                                "type": "boolean"
+                                              },
+                                              "stop": {
+                                                "nullable": true
+                                              },
+                                              "top_k": {
+                                                "type": "integer"
+                                              },
+                                              "top_p": {
+                                                "type": "number"
+                                              },
+                                              "min_p": {
+                                                "type": "number"
+                                              },
+                                              "frequency_penalty": {
+                                                "type": "number"
+                                              },
+                                              "presence_penalty": {
+                                                "type": "number"
+                                              },
+                                              "provider": {
+                                                "type": "string"
+                                              },
+                                              "base_url": {
+                                                "nullable": true
+                                              },
+                                              "routes": {
+                                                "nullable": true
+                                              },
+                                              "agent_flow_type": {
+                                                "type": "string"
+                                              },
+                                              "extraction_details": {
+                                                "nullable": true
+                                              },
+                                              "summarization_details": {
+                                                "nullable": true
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "synthesizer": {
+                                        "type": "object",
+                                        "properties": {
+                                          "provider": {
+                                            "type": "string"
+                                          },
+                                          "provider_config": {
+                                            "type": "object",
+                                            "properties": {
+                                              "voice": {
+                                                "type": "string"
+                                              },
+                                              "model": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          },
+                                          "stream": {
+                                            "type": "boolean"
+                                          },
+                                          "buffer_size": {
+                                            "type": "integer"
+                                          },
+                                          "audio_format": {
+                                            "type": "string"
+                                          },
+                                          "caching": {
+                                            "type": "boolean"
+                                          }
+                                        }
+                                      },
+                                      "transcriber": {
+                                        "type": "object",
+                                        "properties": {
+                                          "model": {
+                                            "type": "string"
+                                          },
+                                          "language": {
+                                            "type": "string"
+                                          },
+                                          "stream": {
+                                            "type": "boolean"
+                                          },
+                                          "sampling_rate": {
+                                            "type": "integer"
+                                          },
+                                          "encoding": {
+                                            "type": "string"
+                                          },
+                                          "endpointing": {
+                                            "type": "integer"
+                                          },
+                                          "keywords": {
+                                            "type": "string"
+                                          },
+                                          "task": {
+                                            "type": "string"
+                                          },
+                                          "provider": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      },
+                                      "input": {
+                                        "type": "object",
+                                        "properties": {
+                                          "provider": {
+                                            "type": "string"
+                                          },
+                                          "format": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      },
+                                      "output": {
+                                        "type": "object",
+                                        "properties": {
+                                          "provider": {
+                                            "type": "string"
+                                          },
+                                          "format": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      },
+                                      "api_tools": {
+                                        "type": "object",
+                                        "properties": {
+                                          "tools": {
+                                            "type": "array",
+                                            "items": {}
+                                          },
+                                          "tools_params": {
+                                            "type": "object"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "task_config": {
+                                    "type": "object",
+                                    "properties": {
+                                      "voicemail": {
+                                        "type": "boolean"
+                                      },
+                                      "optimize_latency": {
+                                        "type": "boolean"
+                                      },
+                                      "hangup_after_silence": {
+                                        "type": "integer"
+                                      },
+                                      "incremental_delay": {
+                                        "type": "integer"
+                                      },
+                                      "number_of_words_for_interruption": {
+                                        "type": "integer"
+                                      },
+                                      "interruption_backoff_period": {
+                                        "type": "integer"
+                                      },
+                                      "hangup_after_LLMCall": {
+                                        "type": "boolean"
+                                      },
+                                      "call_cancellation_prompt": {
+                                        "type": "string"
+                                      },
+                                      "call_hangup_message": {
+                                        "nullable": true,
+                                        "type": "string"
+                                      },
+                                      "backchanneling": {
+                                        "type": "boolean"
+                                      },
+                                      "backchanneling_message_gap": {
+                                        "type": "integer"
+                                      },
+                                      "backchanneling_start_delay": {
+                                        "type": "integer"
+                                      },
+                                      "ambient_noise": {
+                                        "type": "boolean"
+                                      },
+                                      "ambient_noise_track": {
+                                        "type": "string"
+                                      },
+                                      "call_terminate": {
+                                        "type": "integer"
+                                      },
+                                      "use_fillers": {
+                                        "type": "boolean"
+                                      },
+                                      "trigger_user_online_message_after": {
+                                        "type": "integer"
+                                      },
+                                      "check_user_online_message": {
+                                        "type": "string"
+                                      },
+                                      "check_if_user_online": {
+                                        "type": "boolean"
+                                      },
+                                      "generate_precise_transcript": {
+                                        "type": "boolean"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "agent_welcome_message": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "agent_prompts": {
+                          "type": "object",
+                          "properties": {
+                            "task_1": {
+                              "type": "object",
+                              "properties": {
+                                "system_prompt": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "assistant_status": {
+                          "type": "string"
+                        },
+                        "org_id": {
+                          "type": "string"
+                        },
+                        "agent_id": {
+                          "type": "string"
+                        },
+                        "webhook_url": {
+                          "nullable": true,
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "message": "Agent updated successfully",
+                  "data": {
+                    "_id": "682b28b95a99247b2f6ca004",
+                    "agent_config": {
+                      "agent_name": "New Agent updated",
+                      "agent_type": "conversation",
+                      "tasks": [
+                        {
+                          "tools_config": {
+                            "llm_agent": {
+                              "agent_flow_type": "streaming",
+                              "agent_type": "simple_llm_agent",
+                              "routes": null,
+                              "llm_config": {
+                                "model": "gpt-3.5-turbo",
+                                "max_tokens": 150,
+                                "family": "openai",
+                                "temperature": 0.2,
+                                "request_json": false,
+                                "stop": null,
+                                "top_k": 0,
+                                "top_p": 0.9,
+                                "min_p": 0.1,
+                                "frequency_penalty": 0.0,
+                                "presence_penalty": 0.0,
+                                "provider": "openai",
+                                "base_url": null,
+                                "routes": null,
+                                "agent_flow_type": "streaming",
+                                "extraction_details": null,
+                                "summarization_details": null
+                              }
+                            },
+                            "synthesizer": {
+                              "provider": "deepgram",
+                              "provider_config": {
+                                "voice": "Asteria",
+                                "model": "aura-asteria-en"
+                              },
+                              "stream": true,
+                              "buffer_size": 150,
+                              "audio_format": "wav",
+                              "caching": true
+                            },
+                            "transcriber": {
+                              "model": "nova-2",
+                              "language": "en",
+                              "stream": true,
+                              "sampling_rate": 16000,
+                              "encoding": "linear16",
+                              "endpointing": 700,
+                              "keywords": "",
+                              "task": "transcribe",
+                              "provider": "deepgram"
+                            },
+                            "input": {
+                              "provider": "twilio",
+                              "format": "wav"
+                            },
+                            "output": {
+                              "provider": "twilio",
+                              "format": "wav"
+                            },
+                            "api_tools": {
+                              "tools": [],
+                              "tools_params": {}
+                            }
+                          },
+                          "toolchain": {
+                            "execution": "parallel",
+                            "pipelines": [
+                              [
+                                "transcriber",
+                                "llm",
+                                "synthesizer"
+                              ]
+                            ]
+                          },
+                          "task_type": "conversation",
+                          "task_config": {
+                            "voicemail": false,
+                            "optimize_latency": true,
+                            "hangup_after_silence": 10,
+                            "incremental_delay": 1200,
+                            "number_of_words_for_interruption": 2,
+                            "interruption_backoff_period": 0,
+                            "hangup_after_LLMCall": false,
+                            "call_cancellation_prompt": "",
+                            "call_hangup_message": null,
+                            "backchanneling": false,
+                            "backchanneling_message_gap": 5,
+                            "backchanneling_start_delay": 5,
+                            "ambient_noise": false,
+                            "ambient_noise_track": "office-ambience",
+                            "call_terminate": 300,
+                            "use_fillers": false,
+                            "trigger_user_online_message_after": 6,
+                            "check_user_online_message": "Hey, are you still there",
+                            "check_if_user_online": true,
+                            "generate_precise_transcript": false
+                          }
+                        }
+                      ],
+                      "agent_welcome_message": "Hello, how can I help you today?"
+                    },
+                    "agent_prompts": {
+                      "task_1": {
+                        "system_prompt": "You are a helpful assistant."
+                      }
+                    },
+                    "assistant_status": "updated",
+                    "org_id": "681ca52f14144e87791de891",
+                    "agent_id": "e1c56ce5-0c0a-4f98-b06b-eebf3961e504",
+                    "webhook_url": null
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "loc": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "msg": {
+                            "type": "string"
+                          },
+                          "input": {
+                            "nullable": true
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "detail": [
+                    {
+                      "type": "missing",
+                      "loc": [
+                        "body"
+                      ],
+                      "msg": "Field required",
+                      "input": null,
+                      "url": "https://errors.pydantic.dev/2.5/v/missing"
+                    }
+                  ]
                 }
               }
             }
@@ -643,11 +1690,70 @@
       "delete": {
         "summary": "Delete agent",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Agent deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "nullable": true,
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string",
+                      "example": "Method Not Allowed"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/v1/agent/all": {
-      "parameters": [],
+      "parameters": [
+        {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "description": "Bearer token for authentication",
+          "schema": {
+            "type": "string"
+          },
+          "example": "Bearer <token>"
+        },
+        {
+          "name": "skip",
+          "in": "query",
+          "required": false,
+          "example": "2",
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
       "get": {
         "summary": "List agents",
         "parameters": [
@@ -661,14 +1767,368 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Agents listed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "agents": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "_id": {
+                                "type": "string"
+                              },
+                              "agent_config": {
+                                "type": "object",
+                                "properties": {
+                                  "agent_name": {
+                                    "type": "string"
+                                  },
+                                  "agent_type": {
+                                    "type": "string"
+                                  },
+                                  "tasks": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "tools_config": {
+                                          "type": "object",
+                                          "properties": {
+                                            "llm_agent": {
+                                              "type": "object",
+                                              "properties": {
+                                                "agent_flow_type": {
+                                                  "type": "string"
+                                                },
+                                                "agent_type": {
+                                                  "type": "string"
+                                                },
+                                                "routes": {
+                                                  "nullable": true
+                                                },
+                                                "llm_config": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "model": {
+                                                      "type": "string"
+                                                    },
+                                                    "max_tokens": {
+                                                      "type": "integer"
+                                                    },
+                                                    "family": {
+                                                      "type": "string"
+                                                    },
+                                                    "temperature": {
+                                                      "type": "number"
+                                                    },
+                                                    "request_json": {
+                                                      "type": "boolean"
+                                                    },
+                                                    "stop": {
+                                                      "nullable": true
+                                                    },
+                                                    "top_k": {
+                                                      "type": "integer"
+                                                    },
+                                                    "top_p": {
+                                                      "type": "number"
+                                                    },
+                                                    "min_p": {
+                                                      "type": "number"
+                                                    },
+                                                    "frequency_penalty": {
+                                                      "type": "number"
+                                                    },
+                                                    "presence_penalty": {
+                                                      "type": "number"
+                                                    },
+                                                    "provider": {
+                                                      "type": "string"
+                                                    },
+                                                    "base_url": {
+                                                      "nullable": true
+                                                    },
+                                                    "routes": {
+                                                      "nullable": true
+                                                    },
+                                                    "agent_flow_type": {
+                                                      "type": "string"
+                                                    },
+                                                    "extraction_details": {
+                                                      "nullable": true
+                                                    },
+                                                    "summarization_details": {
+                                                      "nullable": true
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            "synthesizer": {
+                                              "type": "object",
+                                              "properties": {
+                                                "provider": {
+                                                  "type": "string"
+                                                },
+                                                "provider_config": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "voice": {
+                                                      "type": "string"
+                                                    },
+                                                    "model": {
+                                                      "type": "string"
+                                                    }
+                                                  }
+                                                },
+                                                "stream": {
+                                                  "type": "boolean"
+                                                },
+                                                "buffer_size": {
+                                                  "type": "integer"
+                                                },
+                                                "audio_format": {
+                                                  "type": "string"
+                                                },
+                                                "caching": {
+                                                  "type": "boolean"
+                                                }
+                                              }
+                                            },
+                                            "transcriber": {
+                                              "type": "object",
+                                              "properties": {
+                                                "model": {
+                                                  "type": "string"
+                                                },
+                                                "language": {
+                                                  "type": "string"
+                                                },
+                                                "stream": {
+                                                  "type": "boolean"
+                                                },
+                                                "sampling_rate": {
+                                                  "type": "integer"
+                                                },
+                                                "encoding": {
+                                                  "type": "string"
+                                                },
+                                                "endpointing": {
+                                                  "type": "integer"
+                                                },
+                                                "keywords": {
+                                                  "type": "string"
+                                                },
+                                                "task": {
+                                                  "type": "string"
+                                                },
+                                                "provider": {
+                                                  "type": "string"
+                                                }
+                                              }
+                                            },
+                                            "input": {
+                                              "type": "object",
+                                              "properties": {
+                                                "provider": {
+                                                  "type": "string"
+                                                },
+                                                "format": {
+                                                  "type": "string"
+                                                }
+                                              }
+                                            },
+                                            "output": {
+                                              "type": "object",
+                                              "properties": {
+                                                "provider": {
+                                                  "type": "string"
+                                                },
+                                                "format": {
+                                                  "type": "string"
+                                                }
+                                              }
+                                            },
+                                            "api_tools": {
+                                              "nullable": true
+                                            }
+                                          }
+                                        },
+                                        "toolchain": {
+                                          "type": "object",
+                                          "properties": {
+                                            "execution": {
+                                              "type": "string"
+                                            },
+                                            "pipelines": {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "array",
+                                                "items": {
+                                                  "type": "string"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "task_type": {
+                                          "type": "string"
+                                        },
+                                        "task_config": {
+                                          "type": "object",
+                                          "properties": {
+                                            "voicemail": {
+                                              "type": "boolean"
+                                            },
+                                            "optimize_latency": {
+                                              "type": "boolean"
+                                            },
+                                            "hangup_after_silence": {
+                                              "type": "integer"
+                                            },
+                                            "incremental_delay": {
+                                              "type": "integer"
+                                            },
+                                            "number_of_words_for_interruption": {
+                                              "type": "integer"
+                                            },
+                                            "interruption_backoff_period": {
+                                              "type": "integer"
+                                            },
+                                            "hangup_after_LLMCall": {
+                                              "type": "boolean"
+                                            },
+                                            "call_cancellation_prompt": {
+                                              "type": "string"
+                                            },
+                                            "call_hangup_message": {
+                                              "type": "string"
+                                            },
+                                            "backchanneling": {
+                                              "type": "boolean"
+                                            },
+                                            "backchanneling_message_gap": {
+                                              "type": "integer"
+                                            },
+                                            "backchanneling_start_delay": {
+                                              "type": "integer"
+                                            },
+                                            "ambient_noise": {
+                                              "type": "boolean"
+                                            },
+                                            "ambient_noise_track": {
+                                              "type": "string"
+                                            },
+                                            "call_terminate": {
+                                              "type": "integer"
+                                            },
+                                            "use_fillers": {
+                                              "type": "boolean"
+                                            },
+                                            "trigger_user_online_message_after": {
+                                              "type": "integer"
+                                            },
+                                            "check_user_online_message": {
+                                              "type": "string"
+                                            },
+                                            "check_if_user_online": {
+                                              "type": "boolean"
+                                            },
+                                            "generate_precise_transcript": {
+                                              "type": "boolean"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "agent_welcome_message": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "agent_prompts": {
+                                "type": "object",
+                                "properties": {
+                                  "task_1": {
+                                    "type": "object",
+                                    "properties": {
+                                      "system_prompt": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "assistant_status": {
+                                "type": "string"
+                              },
+                              "org_id": {
+                                "type": "string"
+                              },
+                              "agent_id": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "pagination": {
+                          "type": "object",
+                          "properties": {
+                            "skip": {
+                              "type": "integer"
+                            },
+                            "limit": {
+                              "type": "integer"
+                            },
+                            "count": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
       }
     },
-    "/api/v1/call": {
+    "/api/v1/call?user_id={user_id}&org_id={org_id}": {
       "parameters": [],
       "post": {
         "summary": "Initiate Call",
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bearer token for authentication",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer <token>"
+          },
           {
             "name": "user_id",
             "in": "query",
@@ -688,7 +2148,107 @@
             }
           }
         ],
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "Call initiated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates if the call was initiated successfully.",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A message describing the result.",
+                      "example": "Call initiated successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Call details",
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "description": "Status of the call.",
+                          "example": "success"
+                        },
+                        "agent_id": {
+                          "type": "string",
+                          "description": "ID of the agent handling the call.",
+                          "example": "3afcc4c1-a963-4a9a-9495-5e2c42481868"
+                        },
+                        "user_id": {
+                          "type": "string",
+                          "description": "ID of the user for whom the call is initiated.",
+                          "example": "68188d4c14144e87791de7d5"
+                        },
+                        "org_id": {
+                          "type": "string",
+                          "description": "Organization ID.",
+                          "example": "681ca52f14144e87791de891"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "loc": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "msg": {
+                            "type": "string"
+                          },
+                          "input": {
+                            "nullable": true
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "detail": [
+                    {
+                      "type": "missing",
+                      "loc": [
+                        "body"
+                      ],
+                      "msg": "Field required",
+                      "input": null,
+                      "url": "https://errors.pydantic.dev/2.5/v/missing"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
         "requestBody": {
           "content": {
             "application/json": {
@@ -699,10 +2259,10 @@
                     "type": "string"
                   },
                   "recipient_phone_number": {
-                    "type": "string",
-                    "format": "utc-millisec"
+                    "type": "string"
                   }
-                }
+                },
+                "required": ["agent_id", "recipient_phone_number"]
               }
             }
           }
@@ -714,6 +2274,16 @@
       "get": {
         "summary": "List agent execution",
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bearer token for authentication",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer <token>"
+          },
           {
             "name": "status",
             "in": "query",
@@ -741,28 +2311,474 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "List of agent executions fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates if the executions were fetched successfully.",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A message describing the result.",
+                      "example": "Executions fetched successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Execution list data",
+                      "properties": {
+                        "executions": {
+                          "type": "array",
+                          "description": "List of executions.",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "execution_id": {
+                                "type": "string",
+                                "description": "Unique identifier for the execution.",
+                                "example": "exec_123456789"
+                              },
+                              "agent_id": {
+                                "type": "string",
+                                "description": "ID of the agent.",
+                                "example": "e1c56ce5-0c0a-4f98-b06b-eebf3961e504"
+                              },
+                              "status": {
+                                "type": "string",
+                                "description": "Status of the execution.",
+                                "example": "completed"
+                              },
+                              "started_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Start time of the execution.",
+                                "example": "2024-05-20T10:00:00Z"
+                              },
+                              "ended_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "End time of the execution.",
+                                "example": "2024-05-20T10:05:00Z"
+                              },
+                              "recipient_phone_number": {
+                                "type": "string",
+                                "description": "Phone number of the recipient.",
+                                "example": "+919876543210"
+                              }
+                            }
+                          }
+                        },
+                        "pagination": {
+                          "type": "object",
+                          "description": "Pagination details.",
+                          "properties": {
+                            "limit": {
+                              "type": "integer",
+                              "description": "Number of items per page.",
+                              "example": 100
+                            },
+                            "count": {
+                              "type": "integer",
+                              "description": "Total number of items.",
+                              "example": 1
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/api/v1/execution/{{execution_id}}/": {
-      "parameters": [],
+    "/api/v1/execution/{execution_id}": {
+      "parameters": [
+        {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "description": "Bearer token for authentication",
+          "schema": {
+            "type": "string"
+          },
+          "example": "Bearer <token>"
+        },
+        {
+          "name": "execution_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the execution to retrieve",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "summary": "Get execution",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Execution fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates if the execution was fetched successfully.",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A message describing the result.",
+                      "example": "Execution fetched successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Execution details",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "Unique identifier for the execution.",
+                          "example": "682c2dcf5a99247b2f6ca009"
+                        },
+                        "agent_id": {
+                          "type": "string",
+                          "description": "ID of the agent.",
+                          "example": "3afcc4c1-a963-4a9a-9495-5e2c42481868"
+                        },
+                        "status": {
+                          "type": "string",
+                          "description": "Status of the execution.",
+                          "example": "completed"
+                        },
+                        "provider": {
+                          "type": "string",
+                          "description": "Provider of the execution.",
+                          "example": "twilio"
+                        },
+                        "org_id": {
+                          "type": "string",
+                          "description": "Organization ID.",
+                          "example": "681ca52f14144e87791de891"
+                        },
+                        "answered_by_voice_mail": {
+                          "type": "boolean",
+                          "description": "Whether the call was answered by voicemail.",
+                          "example": false
+                        },
+                        "context_details": {
+                          "type": "object",
+                          "nullable": true,
+                          "description": "Additional context details for the execution."
+                        },
+                        "conversation_time": {
+                          "type": "number",
+                          "description": "Duration of the conversation in minutes.",
+                          "example": 5.14
+                        },
+                        "cost_breakdown": {
+                          "type": "object",
+                          "description": "Breakdown of costs for different services.",
+                          "properties": {
+                            "llm": {
+                              "type": "number",
+                              "example": 0.00069
+                            },
+                            "transcriber": {
+                              "type": "number",
+                              "example": 0.000604
+                            },
+                            "synthesizer": {
+                              "type": "number",
+                              "example": 0.002456
+                            },
+                            "network": {
+                              "type": "number",
+                              "example": 0
+                            },
+                            "platform": {
+                              "type": "number",
+                              "example": 0.02
+                            }
+                          }
+                        },
+                        "telephony_data": {
+                          "type": "object",
+                          "description": "Telephony related data for the call.",
+                          "properties": {
+                            "provider_call_id": {
+                              "type": "string",
+                              "example": "CA2268b0d147b01504c070803441dae3f9"
+                            },
+                            "provider": {
+                              "type": "string",
+                              "example": "twilio"
+                            },
+                            "hosted_telephony": {
+                              "type": "boolean",
+                              "example": true
+                            },
+                            "hangup_by": {
+                              "type": "string",
+                              "example": "user"
+                            },
+                            "call_type": {
+                              "type": "string",
+                              "example": "outbound"
+                            },
+                            "duration": {
+                              "type": "string",
+                              "example": "6"
+                            },
+                            "recording_url": {
+                              "type": "string",
+                              "example": "twilio"
+                            },
+                            "to_number": {
+                              "type": "string",
+                              "example": "+919876543210"
+                            },
+                            "from_number": {
+                              "type": "string",
+                              "example": "+18444831736"
+                            },
+                            "hangup_reason": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "hangup_provider_code": {
+                              "type": "string",
+                              "nullable": true
+                            }
+                          }
+                        },
+                        "total_cost": {
+                          "type": "number",
+                          "description": "Total cost of the execution.",
+                          "example": 0.024
+                        },
+                        "transcript": {
+                          "type": "string",
+                          "description": "Transcript of the conversation.",
+                          "example": "assistant: Hello, This is survey call from bank of india\nuser:  hello\nassistant:  Have you used Business Loans with Bank of India and can participate in a quick survey?\n"
+                        },
+                        "usage_breakdown": {
+                          "type": "object",
+                          "description": "Breakdown of usage for different services.",
+                          "properties": {
+                            "llm_model": {
+                              "type": "object",
+                              "properties": {
+                                "gpt-3.5-turbo": {
+                                  "type": "object",
+                                  "properties": {
+                                    "input": {
+                                      "type": "integer",
+                                      "example": 1023
+                                    },
+                                    "output": {
+                                      "type": "integer",
+                                      "example": 27
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "llm_tokens": {
+                              "type": "integer",
+                              "example": 0
+                            },
+                            "transcriber_provider": {
+                              "type": "string",
+                              "example": "deepgram"
+                            },
+                            "transcriber_model": {
+                              "type": "string",
+                              "example": "nova-2"
+                            },
+                            "transcriber_duration": {
+                              "type": "number",
+                              "example": 4.9999375
+                            },
+                            "synthesizer_provider": {
+                              "type": "string",
+                              "example": "deepgram"
+                            },
+                            "synthesizer_model": {
+                              "type": "string",
+                              "example": "aura-asteria-en"
+                            },
+                            "synthesizer_characters": {
+                              "type": "integer",
+                              "example": 131
+                            }
+                          }
+                        },
+                        "agent_name": {
+                          "type": "string",
+                          "description": "Name of the agent.",
+                          "example": "New Agent"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string",
+                      "example": "Method Not Allowed"
+                    }
+                  }
+                },
+                "example": {
+                  "detail": "Method Not Allowed"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/v1/user/signup": {
-      "parameters": [],
       "post": {
         "summary": "Signup",
         "parameters": [],
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "User created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User created successfully. Please check your email to verify your account."
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "682c58045a99247b2f6ca00c"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "example@gmail.com"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "abc"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "user"
+                        },
+                        "admin": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "wallet": {
+                          "type": "number",
+                          "example": 0.0
+                        },
+                        "is_first_time_login": {
+                          "type": "boolean",
+                          "example": true
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-05-20T10:23:00.754000"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-05-20T10:23:00.754000"
+                        },
+                        "deleted_at": {
+                          "type": "string",
+                          "nullable": true,
+                          "example": null
+                        },
+                        "organizations": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "example": ["682c58055a99247b2f6ca00d"]
+                        },
+                        "is_verified": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "active_organization": {
+                          "type": "string",
+                          "example": "682c58055a99247b2f6ca00d"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Email already registered"
+                    },
+                    "data": {
+                      "type": "object",
+                      "nullable": true,
+                      "example": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": ["email", "password", "name", "confirmPassword", "organization_name"],
                 "properties": {
                   "email": {
                     "type": "string",
@@ -788,16 +2804,170 @@
       }
     },
     "/api/v1/user/login": {
-      "parameters": [],
+     "parameters": [
+        {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "description": "Bearer token for authentication",
+          "schema": {
+            "type": "string"
+          },
+          "example": "Bearer <token>"
+        }
+      ],
       "post": {
         "summary": "Login",
         "parameters": [],
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Login successful"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "68188d4c14144e87791de7d5"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "example@gmail.com"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "abc"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "user"
+                        },
+                        "admin": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "wallet": {
+                          "type": "number",
+                          "example": 0.0
+                        },
+                        "is_first_time_login": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-05-05T10:05:00.801000"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-05-08T05:26:56.689000"
+                        },
+                        "deleted_at": {
+                          "type": "string",
+                          "nullable": true,
+                          "example": null
+                        },
+                        "organizations": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "example": ["68188d4d14144e87791de7d6", "681c3e0a14144e87791de85a", "681c40c114144e87791de860", "681c9fcd14144e87791de890", "681ca52f14144e87791de891"]
+                        },
+                        "is_verified": {
+                          "type": "boolean",
+                          "example": true
+                        },
+                        "active_organization": {
+                          "type": "string",
+                          "example": "681ca52f14144e87791de891"
+                        },
+                        "last_login_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-05-08T06:19:13.369000"
+                        },
+                        "google_id": {
+                          "type": "string",
+                          "example": "3a27a7cf-adba-48de-a7c3-ca25fbb5a8a2"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "loc": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "msg": {
+                            "type": "string"
+                          },
+                          "input": {
+                            "nullable": true
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "detail": [
+                    {
+                      "type": "missing",
+                      "loc": ["body"],
+                      "msg": "Field required",
+                      "input": null,
+                      "url": "https://errors.pydantic.dev/2.5/v/missing"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": ["email", "password"],
                 "properties": {
                   "email": {
                     "type": "string",
@@ -821,31 +2991,415 @@
           {
             "name": "Authorization",
             "in": "header",
-            "required": false,
+            "required": true,
+            "description": "Bearer token for authentication",
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "Bearer <token>"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "User fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User fetched successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "68188d4c14144e87791de7d5"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "example@gmail.com"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "abc"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "user"
+                        },
+                        "admin": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "wallet": {
+                          "type": "number",
+                          "example": 0.0
+                        },
+                        "is_first_time_login": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-05-05T10:05:00.801000"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-05-08T05:26:56.689000"
+                        },
+                        "deleted_at": {
+                          "type": "string",
+                          "nullable": true,
+                          "example": null
+                        },
+                        "organizations": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "_id": {
+                                "type": "string",
+                                "example": "681c40c114144e87791de860"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "Cloudmate LLP updated"
+                              },
+                              "email": {
+                                "type": "string",
+                                "example": "cloud@mate.com"
+                              },
+                              "description": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                              },
+                              "website": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                              },
+                              "phone": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                              },
+                              "address": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                              },
+                              "created_by": {
+                                "type": "string",
+                                "example": "68188d4c14144e87791de7d5"
+                              },
+                              "updated_by": {
+                                "type": "string",
+                                "example": "68188d4c14144e87791de7d5"
+                              },
+                              "deleted_by": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                              },
+                              "is_deleted": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "voices": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "example": ["67a6085623d73e2e471fe548", "67a6085623d73e2e471fe549", "67bd8dc213a858bd41fa337d"]
+                              }
+                            }
+                          }
+                        },
+                        "is_verified": {
+                          "type": "boolean",
+                          "example": true
+                        },
+                        "verification_token": {
+                          "type": "string",
+                          "nullable": true,
+                          "example": null
+                        },
+                        "verification_token_expires_at": {
+                          "type": "string",
+                          "nullable": true,
+                          "example": null
+                        },
+                        "active_organization": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "example": "681ca52f14144e87791de891"
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "Cloudmate 2"
+                            },
+                            "email": {
+                              "type": "string",
+                              "example": "cloud@mate.com"
+                            },
+                            "description": {
+                              "type": "string",
+                              "nullable": true,
+                              "example": null
+                            },
+                            "website": {
+                              "type": "string",
+                              "nullable": true,
+                              "example": null
+                            },
+                            "phone": {
+                              "type": "string",
+                              "nullable": true,
+                              "example": null
+                            },
+                            "address": {
+                              "type": "string",
+                              "nullable": true,
+                              "example": null
+                            },
+                            "created_by": {
+                              "type": "string",
+                              "example": "68188d4c14144e87791de7d5"
+                            },
+                            "updated_by": {
+                              "type": "string",
+                              "example": "68188d4c14144e87791de7d5"
+                            },
+                            "deleted_by": {
+                              "type": "string",
+                              "nullable": true,
+                              "example": null
+                            },
+                            "is_deleted": {
+                              "type": "boolean",
+                              "example": false
+                            },
+                            "voices": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "example": ["67a6085623d73e2e471fe548", "67bd8dc113a858bd41fa3372", "67bd8dc213a858bd41fa337d"]
+                            }
+                          }
+                        },
+                        "last_login_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-05-20T10:32:58.570000"
+                        },
+                        "google_id": {
+                          "type": "string",
+                          "example": "3a27a7cf-adba-48de-a7c3-ca25fbb5a8a2"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/api/v1/user/{{newUser_id}}": {
-      "parameters": [],
+    "/api/v1/user/{newUser_id}": {
+      "parameters": [
+        {
+          "name": "newUser_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the user",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "put": {
         "summary": "Update User",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
-            "required": false,
+            "required": true,
+            "description": "Bearer token for authentication",
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "Bearer <token>"
           }
         ],
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "User updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User updated successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "68188d4c14144e87791de7d5"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "example@gmail.com"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "abcd"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "user"
+                        },
+                        "admin": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "wallet": {
+                          "type": "number",
+                          "example": 0.0
+                        },
+                        "is_first_time_login": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-05-05T10:05:00.801000"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-05-20T10:53:02.160000"
+                        },
+                        "deleted_at": {
+                          "type": "string",
+                          "nullable": true,
+                          "example": null
+                        },
+                        "organizations": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "example": ["681c40c114144e87791de860", "681c9fcd14144e87791de890", "681ca52f14144e87791de891"]
+                        },
+                        "is_verified": {
+                          "type": "boolean",
+                          "example": true
+                        },
+                        "verification_token": {
+                          "type": "string",
+                          "nullable": true,
+                          "example": null
+                        },
+                        "verification_token_expires_at": {
+                          "type": "string",
+                          "nullable": true,
+                          "example": null
+                        },
+                        "active_organization": {
+                          "type": "string",
+                          "example": "681ca52f14144e87791de891"
+                        },
+                        "last_login_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2025-05-20T10:32:58.570000"
+                        },
+                        "google_id": {
+                          "type": "string",
+                          "example": "3a27a7cf-adba-48de-a7c3-ca25fbb5a8a2"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "loc": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "msg": {
+                            "type": "string"
+                          },
+                          "input": {
+                            "nullable": true
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "detail": [
+                    {
+                      "type": "missing",
+                      "loc": ["body"],
+                      "msg": "Field required",
+                      "input": null,
+                      "url": "https://errors.pydantic.dev/2.5/v/missing"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
@@ -866,18 +3420,53 @@
           {
             "name": "Authorization",
             "in": "header",
-            "required": false,
+            "required": true,
+            "description": "Bearer token for authentication",
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "Bearer <token>"
           }
         ],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
+        "responses": {
+          "200": {
+            "description": "User deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User deleted successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "nullable": true,
+                      "example": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string",
+                      "example": "Not Found"
+                    }
+                  }
+                }
               }
             }
           }
@@ -885,25 +3474,146 @@
       }
     },
     "/api/v1/user/all": {
-      "parameters": [],
       "get": {
         "summary": "User List",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
-            "required": false,
+            "required": true,
+            "description": "Bearer token for authentication",
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "Bearer <token>"
           }
         ],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
+        "responses": {
+          "200": {
+            "description": "Users listed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "users": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "_id": {
+                                "type": "string",
+                                "example": "682ade7f5a99247b2f6c9fff"
+                              },
+                              "email": {
+                                "type": "string",
+                                "example": "user1@example.com"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "User One"
+                              },
+                              "google_id": {
+                                "type": "string",
+                                "example": "00000000-0000-0000-0000-000000000001"
+                              },
+                              "role": {
+                                "type": "string",
+                                "example": "user"
+                              },
+                              "admin": {
+                                "type": "boolean",
+                                "example": false
+                              },
+                              "wallet": {
+                                "type": "number",
+                                "example": 0.0
+                              },
+                              "is_first_time_login": {
+                                "type": "boolean",
+                                "example": true
+                              },
+                              "is_verified": {
+                                "type": "boolean",
+                                "example": true
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2025-05-19T07:32:15.585000"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2025-05-19T07:32:15.585000"
+                              },
+                              "deleted_at": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                              },
+                              "organizations": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "example": ["682ade7f5a99247b2f6ca000"]
+                              },
+                              "verification_token": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": "VERIFICATION_TOKEN"
+                              },
+                              "verification_token_expires_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "nullable": true,
+                                "example": "2025-05-10T10:23:05.035000"
+                              },
+                              "active_organization": {
+                                "type": "string",
+                                "example": "682ade7f5a99247b2f6ca000"
+                              },
+                              "last_login_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "example": "2025-05-18T21:27:00.236000"
+                              }
+                            }
+                          }
+                        },
+                        "pagination": {
+                          "type": "object",
+                          "properties": {
+                            "skip": {
+                              "type": "integer",
+                              "example": 0
+                            },
+                            "limit": {
+                              "type": "integer",
+                              "example": 10
+                            },
+                            "count": {
+                              "type": "integer",
+                              "example": 22
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -911,650 +3621,86 @@
       }
     },
     "/api/v1/user/verify-email": {
-      "parameters": [],
+      "parameters": [
+        {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "description": "Bearer token for authentication",
+          "schema": {
+            "type": "string"
+          },
+          "example": "Bearer <token>"
+        }
+      ],
       "post": {
         "summary": "Verify Email",
-        "parameters": [
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "required": false,
-            "example": "application/json",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/api/v1/knowledge-base/upload": {
-      "parameters": [],
-      "post": {
-        "summary": "Create Knowledge base",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/v1/knowledge-base/all": {
-      "parameters": [],
-      "get": {
-        "summary": "List knowledgebase",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/v1/knowledge-base/{{newKnowledgeBase_id}}": {
-      "parameters": [],
-      "get": {
-        "summary": "Get Knowledgebase",
-        "parameters": [],
-        "responses": {}
-      },
-      "delete": {
-        "summary": "Delete Knowledgebase",
-        "parameters": [],
-        "responses": {}
-      },
-      "put": {
-        "summary": "Update Knowledgebase",
-        "parameters": [],
-        "responses": {},
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": ["token"],
                 "properties": {
-                  "description": {
-                    "type": "string"
+                  "token": {
+                    "type": "string",
+                    "description": "Verification token received in email",
+                    "example": "Z0FBQUFBQm9KbWJjZEdGamVHOXRaV1FnU1VsQkZrWlROV2xTTVhWV2FrdFdTV3hzT1hkNlNqTnVibEZTZUZGV1VUbE5iM0ZrTnpBNWVIWk5kRWhGUkVoR1RsTkZSa0Z0VWtKTlVWWklWVEl6ZGxWRVRrVnVRV1ZKZWs1Q1NXUnNkM1pzYUdGeVpXUmxibU5wYjI0dWNHNW5JR2x1WjNSbGJtTnBkSGxzWlQxd2RXSnNhV05oZEdsdmJpMXZaR1Z5WVdsdUxtTnZiU0JwYm1jPQ=="
                   }
                 }
               }
             }
           }
-        }
-      }
-    },
-    "/api/v1/phone-numbers/sync": {
-      "parameters": [],
-      "post": {
-        "summary": "Sync Numbers",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/phone-numbers/available": {
-      "parameters": [],
-      "get": {
-        "summary": "Available Numbers",
-        "parameters": [
-          {
-            "name": "pattern",
-            "in": "query",
-            "required": false,
-            "example": "786",
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "area_code",
-            "in": "query",
-            "required": false,
-            "example": "1",
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "example": "twilio",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "country",
-            "in": "query",
-            "required": false,
-            "example": "US",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/providers/system": {
-      "parameters": [],
-      "post": {
-        "summary": "Create System Provider",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "category": {
-                    "type": "string"
-                  },
-                  "models": {
-                    "type": "array",
-                    "items": {
+        },
+        "responses": {
+          "200": {
+            "description": "Email verified successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Email verified successfully"
+                    },
+                    "data": {
                       "type": "object",
-                      "properties": {
-                        "label": {
-                          "type": "string"
-                        },
-                        "value": {
-                          "type": "string"
-                        },
-                        "price": {
-                          "type": "number"
-                        }
-                      }
-                    }
-                  },
-                  "credentials": {
-                    "type": "object"
-                  },
-                  "show_in_providers": {
-                    "type": "boolean"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "get": {
-        "summary": "List System Providers",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/v1/providers/system/{{systemProvider_id}}": {
-      "parameters": [],
-      "put": {
-        "summary": "Update System Provider",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete System Provider",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/providers/user": {
-      "parameters": [],
-      "post": {
-        "summary": "Create User Provider",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "provider_id": {
-                    "type": "string"
-                  },
-                  "credentials": {
-                    "type": "object",
-                    "properties": {
-                      "account_sid": {
-                        "type": "string"
-                      },
-                      "auth_token": {
-                        "type": "string"
-                      },
-                      "phone_number": {
-                        "type": "string",
-                        "format": "utc-millisec"
-                      }
+                      "nullable": true,
+                      "example": null
                     }
                   }
                 }
               }
             }
-          }
-        }
-      },
-      "get": {
-        "summary": "List User Providers",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/providers/user/{{newProvider_id}}": {
-      "parameters": [],
-      "put": {
-        "summary": "Update User Provider",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "credentials": {
-                    "type": "object",
-                    "properties": {
-                      "account_sid": {
-                        "type": "string"
-                      },
-                      "auth_token": {
-                        "type": "string"
-                      },
-                      "phone_number": {
-                        "type": "string",
-                        "format": "utc-millisec"
-                      }
+          },
+          "400": {
+            "description": "Invalid or expired verification token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid or expired verification token"
+                    },
+                    "data": {
+                      "type": "object",
+                      "nullable": true,
+                      "example": null
                     }
                   }
                 }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete User Provider",
-        "parameters": [],
-        "responses": {}
-      },
-      "get": {
-        "summary": "Get User Provider",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/providers": {
-      "parameters": [],
-      "get": {
-        "summary": "List Providers with Connections",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/voices/fetch/polly": {
-      "parameters": [],
-      "post": {
-        "summary": "Fetch Voices from Providers",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/v1/voices": {
-      "parameters": [],
-      "get": {
-        "summary": "List Voices",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "example": "132",
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "provider",
-            "in": "query",
-            "required": false,
-            "example": "elevenlabs",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/api/v1/voices/67a6085623d73e2e471fe548/organization": {
-      "parameters": [],
-      "post": {
-        "summary": "Add Voice To Organization",
-        "parameters": [],
-        "responses": {}
-      },
-      "delete": {
-        "summary": "Remove Voice From Organization",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/v1/voices/67bd8dc213a858bd41fa337d/set-default": {
-      "parameters": [],
-      "post": {
-        "summary": "Set Voice To Default",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "is_default": {
-                    "type": "boolean"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/voices": {
-      "parameters": [],
-      "get": {
-        "summary": "New Request",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": false,
-            "example": "Token 04b0c30410dd775a7d1b8d9781726413ebd285b6",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": false,
-            "example": "sk_car_AKLp2Y2-VR0WVlLIQpjoa",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Cartesia-Version",
-            "in": "header",
-            "required": false,
-            "example": "2024-06-10",
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "xi-api-key",
-            "in": "header",
-            "required": false,
-            "example": "sk_37f7ee6c8500b3162b1594ec49b5b1d1be376ff18431b8db",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/api/v1/organizations": {
-      "parameters": [],
-      "post": {
-        "summary": "Create Organization",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string",
-                    "format": "email"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/organizations/{{newOrganization_id}}": {
-      "parameters": [],
-      "put": {
-        "summary": "Update Organization",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string",
-                    "format": "email"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/organizations/681c3d2c14144e87791de859": {
-      "parameters": [],
-      "delete": {
-        "summary": "Delete Organization",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/organizations/all": {
-      "parameters": [],
-      "get": {
-        "summary": "Get Organizations",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/v1/organizations/active": {
-      "parameters": [],
-      "get": {
-        "summary": "Get Active Organization Details",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/organizations/681c3e0a14144e87791de85a/set-active": {
-      "parameters": [],
-      "post": {
-        "summary": "Set Active Organization",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/configs/transcribers/sync": {
-      "parameters": [],
-      "post": {
-        "summary": "Fetch Transcribers",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/v1/configs/transcribers": {
-      "parameters": [],
-      "get": {
-        "summary": "List Transcribers",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/v1/api-keys": {
-      "parameters": [],
-      "post": {
-        "summary": "Create API Key",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "expires_at": {
-                    "type": "string",
-                    "format": "utc-millisec"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "get": {
-        "summary": "List API Keys",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/v1/api-keys/{{newApiKey_id}}": {
-      "parameters": [],
-      "put": {
-        "summary": "Update Api Key",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete API Key",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
               }
             }
           }
