@@ -72,13 +72,36 @@
               {
                 "group": "Users",
                 "pages": [
-                  "api-reference/endpoint/users/signup",
-                  "api-reference/endpoint/users/login",
                   "api-reference/endpoint/users/me",
-                  "api-reference/endpoint/users/update-user",
-                  "api-reference/endpoint/users/delete-user",
-                  "api-reference/endpoint/users/user-list",
-                  "api-reference/endpoint/users/verify-email"
+                  "api-reference/endpoint/users/update-user"
+                ]
+              },
+              {
+                "group": "Knowledge Base",
+                "pages": [
+                  "api-reference/endpoint/knowledge-base/create-knowledge-base"
+                ]
+              },
+              {
+                "group": "Phone Number",
+                "pages": [
+                  "api-reference/endpoint/phoneNumber/sync-phoneNumber",
+                  "api-reference/endpoint/phoneNumber/available-phonuNumber"
+                ]
+              },
+              {
+                "group": "Organization",
+                "pages": [
+                  "api-reference/endpoint/organization/get-all-organization",
+                  "api-reference/endpoint/organization/get-active-organization",
+                  "api-reference/endpoint/organization/update-organization"
+                ]
+              },
+              {
+                "group": "Configs",
+                "pages": [
+                  "api-reference/endpoint/configs/list-transcribers",
+                  "api-reference/endpoint/configs/fetch-transcribers"
                 ]
               }
             ]
