@@ -28,6 +28,12 @@
             ]
           },
           {
+            "group": "Voice",
+            "pages": [
+              "pages/voice-customization"
+            ]
+          },
+          {
             "group": "Platform Features",
             "pages": [
               "pages/manage-agents",
