@@ -33,6 +33,12 @@
               "pages/voice-customization"
             ]
           },
+           {
+            "group": "Phone Numbers",
+            "pages": [
+              "pages/phone-numbers"
+            ]
+          },
           {
             "group": "Platform Features",
             "pages": [
