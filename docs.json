@@ -33,6 +33,12 @@
               "pages/voice-customization"
             ]
           },
+            {
+            "group": "Knowledge Base",
+            "pages": [
+              "pages/knowledge-base"
+            ]
+          },
            {
             "group": "Phone Numbers",
             "pages": [
