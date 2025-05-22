@@ -48,10 +48,11 @@
           {
             "group": "Platform Features",
             "pages": [
-              "pages/manage-agents",
+              "pages/monitor-agent",
               "pages/voice-customization",
               "pages/knowledge-base",
-              "pages/phone-numbers"
+              "pages/phone-numbers",
+              "pages/connect-providers"
             ]
           },
           {

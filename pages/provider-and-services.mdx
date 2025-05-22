@@ -1,0 +1,87 @@
+---
+title: "Connect Providers and Services"
+description: "Learn how to connect provider and services in your Voice Nova agents."
+---
+
+## Overview
+
+Easily link external services and voice providers to power your Voice Nova agents with enhanced capabilities like real-time calling, transcription, and more.
+
+### 1. Navigate to the Providers Section
+
+From the left menu, click on **"Providers"** to view all available integrations.
+
+<img
+  src="/provider-menu.png"
+  alt="Voice Page Png"
+  style={{ borderRadius:"12px",border:"1px solid      #333",width:"100%",maxWidth:"600px",margin:"1rem 0",display:"block",marginLeft:"auto",marginRight:"auto" }}
+  title=""
+  className="mr-auto"
+/>
+
+### 2. Choose Your Voice Provider
+
+Select from supported platforms like **Twilio**, **Deepgram**, **ElevenLabs**, or **Amazon Polly** to enable voice, text-to-speech, or speech-to-text features.
+
+<img
+  src="/connect-provider.png"
+  alt="Voice Page Png"
+  style={{ borderRadius:"12px",border:"1px solid      #333",width:"100%",maxWidth:"600px",margin:"1rem 0",display:"block",marginLeft:"auto",marginRight:"auto" }}
+  title=""
+  className="mr-auto"
+/>
+
+### 3. Add Provider Credentials
+
+Enter required credentials such as **API keys**, **account SID**, or **auth tokens** securely. This ensures proper authentication and connectivity between your agent and the service provider.
+
+<img
+  src="/twilioform-edit.png"
+  alt="Voice Page Png"
+  style={{ borderRadius:"12px",border:"1px solid      #333",width:"100%",maxWidth:"600px",margin:"1rem 0",display:"block",marginLeft:"auto",marginRight:"auto" }}
+  title=""
+  className="mr-auto"
+/>
+
+### 4. You’ll see that your Twilio account was successfully connected
+
+Once connected, the service will be available for use.
+
+<img
+  src="/account-connected.png"
+  alt="Voice Page Png"
+  style={{ borderRadius:"12px",border:"1px solid      #333",width:"100%",maxWidth:"600px",margin:"1rem 0",display:"block",marginLeft:"auto",marginRight:"auto" }}
+  title=""
+  className="mr-auto"
+/>
+
+## Supported Providers
+
+| Provider   | Purpose        | Features                        |
+| :--------- | :------------- | :------------------------------ |
+| Twilio     | Calling/SMS    | Voice calls, SMS, phone numbers |
+| Deepgram   | Speech-to-Text | Real-time transcription         |
+| ElevenLabs | Text-to-Speech | Natural-sounding voices         |
+| Cartesia   | Text-to-Speech | Multi-language support          |
+
+## Provider Comparison Table
+
+| Provider         | Type | Language Support | Voice Quality  | Real-Time Support | Pricing Model      |
+| :--------------- | :--- | :--------------- | :------------- | :---------------- | :----------------- |
+| **Cartesia**     | TTS  | Multi-language   | ⭐⭐⭐⭐           | (Batch only)      | Usage-based        |
+| **ElevenLabs**   | TTS  | Multi-language   | ⭐⭐⭐⭐⭐          | Real-time         | Token-based        |
+| **Amazon Polly** | TTS  | Multi-language   | ⭐⭐⭐            | Real-time         | Pay-per-request    |
+| **Deepgram**     | STT  | Multi-language   | N/A (STT only) | Real-time         | Tiered/usage-based |
+
+<Note>
+  - **TTS**: Text-to-Speech
+  - **STT**: Speech-to-Text
+  - Language support and quality may vary by voice or model.
+</Note>
+
+
+<Tip>
+  - **Keep credentials secure** and never share them publicly.
+  - **Test the connection** before deploying to live agents.
+  - **You can connect multiple providers** and switch between them as needed.
+</Tip>
