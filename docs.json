@@ -47,28 +47,29 @@
           },
           {
             "group": "Providers on Voice Nova",
-            "groups": [
+            "pages": [
               {
                 "group": "Transcribers",
-                "pages": ["pages/providers/transcribers/deepgram"]
+                "pages": [
+                  "pages/transcribers/deepgram"
+                ]
               },
-              {
+               {
                 "group": "Large Language Models",
-                "pages": ["pages/providers/llms/openai"]
-              },
+                "pages": [
+                  "pages/llms/openai"
+                ]
+               },
               {
                 "group": "Synthesizers (Voices)",
                 "pages": [
-                  "pages/providers/synthesizers/aws-polly",
-                  "pages/providers/synthesizers/azure",
-                  "pages/providers/synthesizers/cartesia",
-                  "pages/providers/synthesizers/deepgram",
-                  "pages/providers/synthesizers/elevenlabs",
-                  "pages/providers/synthesizers/sarvam",
-                  "pages/providers/synthesizers/smallest"
+                  "pages/synthesizers/aws-polly",
+                  "pages/synthesizers/cartesia",
+                  "pages/synthesizers/deepgram",
+                  "pages/synthesizers/elevenlabes"
                 ]
-              }
-            ]
+               }
+            ] 
           },
           {
             "group": "Platform Features",
