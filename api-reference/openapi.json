@@ -12,18 +12,18 @@
   ],
   "paths": {
     "/api/v1/agent": {
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "Bearer token for authentication",
-            "schema": {
-              "type": "string",
-              "default": "Bearer "
-            },
-            "example": "Bearer <token>"
-          }
+      "parameters": [
+        {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "description": "Bearer token for authentication",
+          "schema": {
+            "type": "string",
+            "default": "Bearer "
+          },
+          "example": "Bearer <token>"
+        }
       ],
       "post": {
         "summary": "Create agent",
@@ -31,11 +31,11 @@
         "responses": {
           "200": {
             "description": "Agent created successfully",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
                     "success": {
                       "type": "boolean",
                       "description": "Indicates if the agent was created successfully.",
@@ -47,34 +47,34 @@
                       "example": "Agent Created Successfully"
                     },
                     "data": {
-                    "type": "object",
+                      "type": "object",
                       "description": "Agent details",
-                    "properties": {
+                      "properties": {
                         "_id": {
-                            "type": "string",
+                          "type": "string",
                           "description": "Unique identifier for the agent.",
                           "example": "5f3c1e8a9d7b134c8a2fbe66"
-                  },
-                  "agent_config": {
-                    "type": "object",
+                        },
+                        "agent_config": {
+                          "type": "object",
                           "description": "Configuration details for the agent.",
-                    "properties": {
-                      "agent_name": {
-                        "type": "string",
+                          "properties": {
+                            "agent_name": {
+                              "type": "string",
                               "description": "Human-readable agent name.",
                               "example": "New Agent"
-                      },
-                      "agent_type": {
-                        "type": "string",
+                            },
+                            "agent_type": {
+                              "type": "string",
                               "description": "Type of agent.",
                               "example": "conversation"
-                      },
-                      "tasks": {
-                        "type": "array",
+                            },
+                            "tasks": {
+                              "type": "array",
                               "description": "List of tasks assigned to the agent.",
-                        "items": {
-                          "type": "object",
-                          "properties": {
+                              "items": {
+                                "type": "object",
+                                "properties": {
                                   "task_type": {
                                     "type": "string",
                                     "description": "Type of the task.",
@@ -97,36 +97,56 @@
                                           "items": {
                                             "type": "string"
                                           },
-                                          "example": ["transcriber", "llm", "synthesizer"]
+                                          "example": [
+                                            "transcriber",
+                                            "llm",
+                                            "synthesizer"
+                                          ]
                                         }
                                       }
                                     }
                                   },
-                            "tools_config": {
-                              "type": "object",
+                                  "tools_config": {
+                                    "type": "object",
                                     "description": "Configuration for tools used in the task.",
-                              "properties": {
-                                "llm_agent": {
-                                  "type": "object",
-                                  "properties": {
-                                          "agent_flow_type": { "type": "string" },
+                                    "properties": {
+                                      "llm_agent": {
+                                        "type": "object",
+                                        "properties": {
+                                          "agent_flow_type": {
+                                            "type": "string"
+                                          },
                                           "agent_type": { "type": "string" },
                                           "llm_config": {
                                             "type": "object",
                                             "properties": {
                                               "model": { "type": "string" },
-                                              "max_tokens": { "type": "integer" },
+                                              "max_tokens": {
+                                                "type": "integer"
+                                              },
                                               "family": { "type": "string" },
-                                              "temperature": { "type": "number" },
-                                              "request_json": { "type": "boolean" },
+                                              "temperature": {
+                                                "type": "number"
+                                              },
+                                              "request_json": {
+                                                "type": "boolean"
+                                              },
                                               "top_k": { "type": "integer" },
                                               "top_p": { "type": "number" },
                                               "min_p": { "type": "number" },
-                                              "frequency_penalty": { "type": "number" },
-                                              "presence_penalty": { "type": "number" },
+                                              "frequency_penalty": {
+                                                "type": "number"
+                                              },
+                                              "presence_penalty": {
+                                                "type": "number"
+                                              },
                                               "provider": { "type": "string" },
-                                              "context_data": { "type": "object" },
-                                              "agent_information": { "type": "string" }
+                                              "context_data": {
+                                                "type": "object"
+                                              },
+                                              "agent_information": {
+                                                "type": "string"
+                                              }
                                             }
                                           }
                                         }
@@ -154,7 +174,9 @@
                                           "model": { "type": "string" },
                                           "language": { "type": "string" },
                                           "stream": { "type": "boolean" },
-                                          "sampling_rate": { "type": "integer" },
+                                          "sampling_rate": {
+                                            "type": "integer"
+                                          },
                                           "encoding": { "type": "string" },
                                           "endpointing": { "type": "integer" },
                                           "keywords": { "type": "string" },
@@ -177,42 +199,70 @@
                                         }
                                       },
                                       "api_tools": {
-                                      "type":"object",
-                                      "description":"API tools to use."
+                                        "type": "object",
+                                        "description": "API tools to use."
                                       }
                                     }
                                   },
                                   "task_config": {
-                                      "type": "object",
+                                    "type": "object",
                                     "description": "Configuration for the task.",
-                                      "properties": {
+                                    "properties": {
                                       "voicemail": { "type": "boolean" },
                                       "optimize_latency": { "type": "boolean" },
-                                      "hangup_after_silence": { "type": "integer" },
-                                      "incremental_delay": { "type": "integer" },
-                                      "number_of_words_for_interruption": { "type": "integer" },
-                                      "interruption_backoff_period": { "type": "integer" },
-                                      "hangup_after_LLMCall": { "type": "boolean" },
-                                      "call_cancellation_prompt": { "type": "string" },
-                                      "call_hangup_message": { "type": "string" },
+                                      "hangup_after_silence": {
+                                        "type": "integer"
+                                      },
+                                      "incremental_delay": {
+                                        "type": "integer"
+                                      },
+                                      "number_of_words_for_interruption": {
+                                        "type": "integer"
+                                      },
+                                      "interruption_backoff_period": {
+                                        "type": "integer"
+                                      },
+                                      "hangup_after_LLMCall": {
+                                        "type": "boolean"
+                                      },
+                                      "call_cancellation_prompt": {
+                                        "type": "string"
+                                      },
+                                      "call_hangup_message": {
+                                        "type": "string"
+                                      },
                                       "backchanneling": { "type": "boolean" },
-                                      "backchanneling_message_gap": { "type": "integer" },
-                                      "backchanneling_start_delay": { "type": "integer" },
+                                      "backchanneling_message_gap": {
+                                        "type": "integer"
+                                      },
+                                      "backchanneling_start_delay": {
+                                        "type": "integer"
+                                      },
                                       "ambient_noise": { "type": "boolean" },
-                                      "ambient_noise_track": { "type": "string" },
+                                      "ambient_noise_track": {
+                                        "type": "string"
+                                      },
                                       "call_terminate": { "type": "integer" },
                                       "use_fillers": { "type": "boolean" },
-                                      "trigger_user_online_message_after": { "type": "integer" },
-                                      "check_user_online_message": { "type": "string" },
-                                      "check_if_user_online": { "type": "boolean" },
-                                      "generate_precise_transcript": { "type": "boolean" }
+                                      "trigger_user_online_message_after": {
+                                        "type": "integer"
+                                      },
+                                      "check_user_online_message": {
+                                        "type": "string"
+                                      },
+                                      "check_if_user_online": {
+                                        "type": "boolean"
+                                      },
+                                      "generate_precise_transcript": {
+                                        "type": "boolean"
+                                      }
                                     }
                                   }
                                 }
                               }
                             },
                             "agent_welcome_message": {
-                                          "type": "string",
+                              "type": "string",
                               "description": "Welcome message for the agent.",
                               "example": "Hello, This is survey call from bank of india"
                             }
@@ -235,7 +285,7 @@
                           }
                         },
                         "assistant_status": {
-                                          "type": "string",
+                          "type": "string",
                           "description": "Current status of the agent.",
                           "example": "seeding"
                         },
@@ -252,132 +302,22 @@
                       }
                     }
                   }
-                },
-                "example": {
-                  "success": true,
-                  "message": "Agent Created Successfully",
-                  "data": {
-                    "_id": "5f3c1e8a9d7b134c8a2fbe66",
-                    "agent_config": {
-                      "agent_name": "New Agent",
-                      "agent_type": "conversation",
-                      "tasks": [
-                        {
-                          "tools_config": {
-                            "llm_agent": {
-                              "agent_flow_type": "streaming",
-                              "agent_type": "simple_llm_agent",
-                              
-                              "llm_config": {
-                                "model": "gpt-3.5-turbo",
-                                "max_tokens": 150,
-                                "family": "openai",
-                                "temperature": 0.2,
-                                "request_json": false,
-                                "top_k": 0,
-                                "top_p": 0.9,
-                                "min_p": 0.1,
-                                "frequency_penalty": 0.0,
-                                "presence_penalty": 0.0,
-                                "provider": "openai",
-                                "context_data": null,
-                                "agent_information": null
-                              }
-                            },
-                            "synthesizer": {
-                              "provider": "deepgram",
-                              "provider_config": {
-                                "voice": "Asteria",
-                                "model": "aura-asteria-en"
-                              },
-                              "stream": true,
-                              "buffer_size": 150,
-                              "audio_format": "wav",
-                              "caching": true
-                            },
-                            "transcriber": {
-                              "model": "nova-2",
-                              "language": "en",
-                              "stream": true,
-                              "sampling_rate": 16000,
-                              "encoding": "linear16",
-                              "endpointing": 700,
-                              "keywords": "",
-                              "task": "transcribe",
-                              "provider": "deepgram"
-                            },
-                            "input": {
-                              "provider": "twilio",
-                              "format": "wav"
-                            },
-                            "output": {
-                              "provider": "twilio",
-                              "format": "wav"
-                            },
-                            "api_tools": null
-                          },
-                          "toolchain": {
-                            "execution": "parallel",
-                            "pipelines": [
-                              [
-                                "transcriber",
-                                "llm",
-                                "synthesizer"
-                              ]
-                            ]
-                          },
-                          "task_type": "conversation",
-                          "task_config": {
-                            "voicemail": false,
-                            "optimize_latency": true,
-                            "hangup_after_silence": 10,
-                            "incremental_delay": 1200,
-                            "number_of_words_for_interruption": 2,
-                            "interruption_backoff_period": 0,
-                            "hangup_after_LLMCall": false,
-                            "call_cancellation_prompt": "",
-                            "call_hangup_message": "",
-                            "backchanneling": false,
-                            "backchanneling_message_gap": 5,
-                            "backchanneling_start_delay": 5,
-                            "ambient_noise": false,
-                            "ambient_noise_track": "office-ambience",
-                            "call_terminate": 300,
-                            "use_fillers": false,
-                            "trigger_user_online_message_after": 6,
-                            "check_user_online_message": "Hey, are you still there",
-                            "check_if_user_online": true,
-                            "generate_precise_transcript": false
-                          }
-                        }
-                      ],
-                      "agent_welcome_message": "Hello, This is survey call from bank of india"
-                    },
-                    "agent_prompts": {
-                      "task_1": {
-                        "system_prompt": "Your name is Lily Jay, a friendly survey agent at Bank of India.\n\nYou will keep your sentences short, easy to follow, and always stay on topic. Never reply with more than 2 sentences. Your role is to gather feedback from customers who have used Business Loans, record their NPS score (0–10), and understand their experience.\n\nBe warm, empathetic, and professional throughout. Use conversational openers like 'Got it,' 'Hmm,' or 'Makes sense,' to keep the interaction natural and engaging. Avoid slang or repetitive filler words.\n\nGuidelines:\n\nIntroduce yourself and politely ask if they have used Business Loans and can participate in a quick survey.\nDo not repeat questions already asked.\nIf the customer is unfamiliar with Bank of India, respond:\n\"We provide business and personal loans and value customer feedback to improve our services.\"\n\nFeedback Questions:\n\nAsk for their overall satisfaction with Business Loans (NPS: 0–10).\nAsk what they liked most about the product and encourage specific details.\nAsk if the loan process (application, approval, or repayment) met their expectations.\nAsk how they found the interest rates and repayment terms.\nAsk if they faced any issues during the loan process or with customer service.\nInquire if they would recommend the Business Loan to others and why.\n\nDissatisfied Scenario:\n\nIf the customer rates below 5 or shares dissatisfaction:\n\"I'm really sorry to hear that. Could you tell me more about what went wrong so we can improve?\"\nEmpathize: \"I completely understand how frustrating that must have been.\"\nAssure: \"Your feedback is very important, and I'll make sure it reaches the right team to address this.\"\nIf the issue is about customer service: \"I apologize for the inconvenience you experienced. We're working to improve our service and ensure a better experience in the future.\"\n\nClosing:\n\nThank the customer sincerely for their input:\n\"Thank you so much for your time and feedback. It helps us improve and serve you better. Have a great day!\"\n\nTone:\nMaintain a warm, professional, and empathetic tone throughout. Ensure customers feel heard, valued, and appreciated during the conversation."
-                      }
-                    },
-                    "assistant_status": "seeding",
-                    "org_id": "7e1d3a9c8f244eb7a65fc230",
-                    "agent_id": "a3f8d4b2-7e19-4c3a-95de-1a6fcb9b4d70"
-                                        }
-                                      }
-                                    }
-                                  }
-                                },
+                }
+              }
+            }
+          },
           "422": {
             "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
-                                  "type": "object",
-                                  "properties": {
+                  "type": "object",
+                  "properties": {
                     "detail": {
                       "type": "array",
                       "items": {
-                                      "type": "object",
-                                      "properties": {
+                        "type": "object",
+                        "properties": {
                           "type": {
                             "type": "string"
                           },
@@ -405,9 +345,7 @@
                   "detail": [
                     {
                       "type": "missing",
-                      "loc": [
-                        "body"
-                      ],
+                      "loc": ["body"],
                       "msg": "Field required",
                       "input": null,
                       "url": "https://errors.pydantic.dev/2.5/v/missing"
@@ -475,12 +413,12 @@
                                   "type": "object",
                                   "description": "Configuration for the LLM agent component.",
                                   "properties": {
-                                    "agent_flow_type": { 
+                                    "agent_flow_type": {
                                       "type": "string",
                                       "description": "Type of agent flow (e.g., streaming, batch).",
                                       "example": "streaming"
                                     },
-                                    "agent_type": { 
+                                    "agent_type": {
                                       "type": "string",
                                       "description": "Type of LLM agent implementation.",
                                       "example": "simple_llm_agent"
@@ -489,67 +427,67 @@
                                       "type": "object",
                                       "description": "Configuration for the language model.",
                                       "properties": {
-                                        "model": { 
+                                        "model": {
                                           "type": "string",
                                           "description": "Name of the language model to use.",
                                           "example": "gpt-3.5-turbo"
                                         },
-                                        "max_tokens": { 
+                                        "max_tokens": {
                                           "type": "integer",
                                           "description": "Maximum number of tokens to generate.",
                                           "example": 150
                                         },
-                                        "family": { 
+                                        "family": {
                                           "type": "string",
                                           "description": "Model family or provider.",
                                           "example": "openai"
                                         },
-                                        "temperature": { 
+                                        "temperature": {
                                           "type": "number",
                                           "description": "Sampling temperature for generation.",
                                           "example": 0.2
                                         },
-                                        "request_json": { 
+                                        "request_json": {
                                           "type": "boolean",
                                           "description": "Whether to request JSON formatted responses.",
                                           "example": false
                                         },
-                                        "top_k": { 
+                                        "top_k": {
                                           "type": "integer",
                                           "description": "Number of highest probability tokens to keep.",
                                           "example": 0
                                         },
-                                        "top_p": { 
+                                        "top_p": {
                                           "type": "number",
                                           "description": "Nucleus sampling parameter.",
                                           "example": 0.9
                                         },
-                                        "min_p": { 
+                                        "min_p": {
                                           "type": "number",
                                           "description": "Minimum probability threshold.",
                                           "example": 0.1
                                         },
-                                        "frequency_penalty": { 
+                                        "frequency_penalty": {
                                           "type": "number",
                                           "description": "Penalty for token frequency.",
                                           "example": 0.0
                                         },
-                                        "presence_penalty": { 
+                                        "presence_penalty": {
                                           "type": "number",
                                           "description": "Penalty for token presence.",
                                           "example": 0.0
                                         },
-                                        "provider": { 
+                                        "provider": {
                                           "type": "string",
                                           "description": "LLM provider name.",
                                           "example": "openai"
                                         },
-                                        "context_data": { 
+                                        "context_data": {
                                           "type": "object",
                                           "description": "Additional context data for the model.",
                                           "example": null
                                         },
-                                        "agent_information": { 
+                                        "agent_information": {
                                           "type": "string",
                                           "description": "Additional information about the agent.",
                                           "example": null
@@ -562,7 +500,7 @@
                                   "type": "object",
                                   "description": "Configuration for text-to-speech synthesis.",
                                   "properties": {
-                                    "provider": { 
+                                    "provider": {
                                       "type": "string",
                                       "description": "TTS provider name.",
                                       "example": "deepgram"
@@ -571,34 +509,34 @@
                                       "type": "object",
                                       "description": "Provider-specific configuration.",
                                       "properties": {
-                                        "voice": { 
+                                        "voice": {
                                           "type": "string",
                                           "description": "Voice ID or name to use.",
                                           "example": "Asteria"
                                         },
-                                        "model": { 
+                                        "model": {
                                           "type": "string",
                                           "description": "TTS model to use.",
                                           "example": "aura-asteria-en"
                                         }
                                       }
                                     },
-                                    "stream": { 
+                                    "stream": {
                                       "type": "boolean",
                                       "description": "Whether to stream the audio output.",
                                       "example": true
                                     },
-                                    "buffer_size": { 
+                                    "buffer_size": {
                                       "type": "integer",
                                       "description": "Size of audio buffer in milliseconds.",
                                       "example": 150
                                     },
-                                    "audio_format": { 
+                                    "audio_format": {
                                       "type": "string",
                                       "description": "Format of the audio output.",
                                       "example": "wav"
                                     },
-                                    "caching": { 
+                                    "caching": {
                                       "type": "boolean",
                                       "description": "Whether to cache generated audio.",
                                       "example": true
@@ -609,47 +547,47 @@
                                   "type": "object",
                                   "description": "Configuration for speech-to-text transcription.",
                                   "properties": {
-                                    "model": { 
+                                    "model": {
                                       "type": "string",
                                       "description": "Transcription model to use.",
                                       "example": "nova-2"
                                     },
-                                    "language": { 
+                                    "language": {
                                       "type": "string",
                                       "description": "Language code for transcription.",
                                       "example": "en"
                                     },
-                                    "stream": { 
+                                    "stream": {
                                       "type": "boolean",
                                       "description": "Whether to stream the transcription.",
                                       "example": true
                                     },
-                                    "sampling_rate": { 
+                                    "sampling_rate": {
                                       "type": "integer",
                                       "description": "Audio sampling rate in Hz.",
                                       "example": 16000
                                     },
-                                    "encoding": { 
+                                    "encoding": {
                                       "type": "string",
                                       "description": "Audio encoding format.",
                                       "example": "linear16"
                                     },
-                                    "endpointing": { 
+                                    "endpointing": {
                                       "type": "integer",
                                       "description": "Endpoint detection threshold in milliseconds.",
                                       "example": 700
                                     },
-                                    "keywords": { 
+                                    "keywords": {
                                       "type": "string",
                                       "description": "Keywords to boost in transcription.",
                                       "example": ""
                                     },
-                                    "task": { 
+                                    "task": {
                                       "type": "string",
                                       "description": "Transcription task type.",
                                       "example": "transcribe"
                                     },
-                                    "provider": { 
+                                    "provider": {
                                       "type": "string",
                                       "description": "Transcription provider name.",
                                       "example": "deepgram"
@@ -660,12 +598,12 @@
                                   "type": "object",
                                   "description": "Configuration for audio input handling.",
                                   "properties": {
-                                    "provider": { 
+                                    "provider": {
                                       "type": "string",
                                       "description": "Input provider name.",
                                       "example": "twilio"
                                     },
-                                    "format": { 
+                                    "format": {
                                       "type": "string",
                                       "description": "Input audio format.",
                                       "example": "wav"
@@ -676,12 +614,12 @@
                                   "type": "object",
                                   "description": "Configuration for audio output handling.",
                                   "properties": {
-                                    "provider": { 
+                                    "provider": {
                                       "type": "string",
                                       "description": "Output provider name.",
                                       "example": "twilio"
                                     },
-                                    "format": { 
+                                    "format": {
                                       "type": "string",
                                       "description": "Output audio format.",
                                       "example": "wav"
@@ -698,103 +636,103 @@
                               "type": "object",
                               "description": "Configuration for task-specific behavior.",
                               "properties": {
-                                "voicemail": { 
+                                "voicemail": {
                                   "type": "boolean",
                                   "description": "Whether to handle voicemail detection.",
                                   "example": false
                                 },
-                                "optimize_latency": { 
+                                "optimize_latency": {
                                   "type": "boolean",
                                   "description": "Whether to optimize for low latency.",
                                   "example": true
                                 },
-                                "hangup_after_silence": { 
+                                "hangup_after_silence": {
                                   "type": "integer",
                                   "description": "Seconds of silence before hanging up.",
                                   "example": 10
                                 },
-                                "incremental_delay": { 
+                                "incremental_delay": {
                                   "type": "integer",
                                   "description": "Delay between responses in milliseconds.",
                                   "example": 1200
                                 },
-                                "number_of_words_for_interruption": { 
+                                "number_of_words_for_interruption": {
                                   "type": "integer",
                                   "description": "Number of words before allowing interruption.",
                                   "example": 2
                                 },
-                                "interruption_backoff_period": { 
+                                "interruption_backoff_period": {
                                   "type": "integer",
                                   "description": "Delay before allowing interruption in milliseconds.",
                                   "example": 0
                                 },
-                                "hangup_after_LLMCall": { 
+                                "hangup_after_LLMCall": {
                                   "type": "boolean",
                                   "description": "Whether to hang up after LLM response.",
                                   "example": false
                                 },
-                                "call_cancellation_prompt": { 
+                                "call_cancellation_prompt": {
                                   "type": "string",
                                   "description": "Message to play when call is cancelled.",
                                   "example": ""
                                 },
-                                "call_hangup_message": { 
-                                  "nullable": true, 
+                                "call_hangup_message": {
+                                  "nullable": true,
                                   "type": "string",
                                   "description": "Message to play before hanging up.",
                                   "example": null
                                 },
-                                "backchanneling": { 
+                                "backchanneling": {
                                   "type": "boolean",
                                   "description": "Whether to use backchanneling.",
                                   "example": false
                                 },
-                                "backchanneling_message_gap": { 
+                                "backchanneling_message_gap": {
                                   "type": "integer",
                                   "description": "Gap between backchanneling messages in seconds.",
                                   "example": 5
                                 },
-                                "backchanneling_start_delay": { 
+                                "backchanneling_start_delay": {
                                   "type": "integer",
                                   "description": "Delay before starting backchanneling in seconds.",
                                   "example": 5
                                 },
-                                "ambient_noise": { 
+                                "ambient_noise": {
                                   "type": "boolean",
                                   "description": "Whether to add ambient noise.",
                                   "example": false
                                 },
-                                "ambient_noise_track": { 
+                                "ambient_noise_track": {
                                   "type": "string",
                                   "description": "Ambient noise track to use.",
                                   "example": "office-ambience"
                                 },
-                                "call_terminate": { 
+                                "call_terminate": {
                                   "type": "integer",
                                   "description": "Maximum call duration in seconds.",
                                   "example": 300
                                 },
-                                "use_fillers": { 
+                                "use_fillers": {
                                   "type": "boolean",
                                   "description": "Whether to use filler words.",
                                   "example": false
                                 },
-                                "trigger_user_online_message_after": { 
+                                "trigger_user_online_message_after": {
                                   "type": "integer",
                                   "description": "Seconds before checking if user is online.",
                                   "example": 6
                                 },
-                                "check_user_online_message": { 
+                                "check_user_online_message": {
                                   "type": "string",
                                   "description": "Message to play when checking if user is online.",
                                   "example": "Hey, are you still there"
                                 },
-                                "check_if_user_online": { 
+                                "check_if_user_online": {
                                   "type": "boolean",
                                   "description": "Whether to check if user is online.",
                                   "example": true
                                 },
-                                "generate_precise_transcript": { 
+                                "generate_precise_transcript": {
                                   "type": "boolean",
                                   "description": "Whether to generate detailed transcript.",
                                   "example": false
@@ -824,7 +762,9 @@
                                       "type": "string"
                                     }
                                   },
-                                  "example": [["transcriber", "llm", "synthesizer"]]
+                                  "example": [
+                                    ["transcriber", "llm", "synthesizer"]
+                                  ]
                                 }
                               }
                             }
@@ -833,106 +773,6 @@
                       }
                     }
                   }
-                }
-              },
-              "example": {
-                "agent_prompts": {
-                  "task_1": {
-                    "system_prompt": "Your name is Lily Jay, a friendly survey agent at Bank of India. You will keep your sentences short, easy to follow, and always stay on topic. Never reply with more than 2 sentences. Your role is to gather feedback from customers who have used Business Loans, record their NPS score (0–10), and understand their experience."
-                  }
-                },
-                "agent_config": {
-                  "agent_welcome_message": "Hello, This is survey call from bank of india",
-                  "agent_name": "Bank Survey Agent",
-                  "agent_type": "conversation",
-                  "tasks": [
-                    {
-                      "tools_config": {
-                        "llm_agent": {
-                          "agent_flow_type": "streaming",
-                          "agent_type": "simple_llm_agent",
-                          "llm_config": {
-                            "model": "gpt-3.5-turbo",
-                            "max_tokens": 150,
-                            "family": "openai",
-                            "temperature": 0.2,
-                            "request_json": false,
-                            "top_k": 0,
-                            "top_p": 0.9,
-                            "min_p": 0.1,
-                            "frequency_penalty": 0.0,
-                            "presence_penalty": 0.0,
-                            "provider": "openai",
-                            "context_data": null,
-                            "agent_information": null
-                          }
-                        },
-                        "synthesizer": {
-                          "provider": "deepgram",
-                          "provider_config": {
-                            "voice": "Asteria",
-                            "model": "aura-asteria-en"
-                          },
-                          "stream": true,
-                          "buffer_size": 150,
-                          "audio_format": "wav",
-                          "caching": true
-                        },
-                        "transcriber": {
-                          "model": "nova-2",
-                          "language": "en",
-                          "stream": true,
-                          "sampling_rate": 16000,
-                          "encoding": "linear16",
-                          "endpointing": 700,
-                          "keywords": "",
-                          "task": "transcribe",
-                          "provider": "deepgram"
-                        },
-                        "input": {
-                          "provider": "twilio",
-                          "format": "wav"
-                        },
-                        "output": {
-                          "provider": "twilio",
-                          "format": "wav"
-                        },
-                        "api_tools": {
-                          "type": "object",
-                          "description": "API tools to use."
-                        }
-                      },
-                      "toolchain": {
-                        "execution": "parallel",
-                        "pipelines": [
-                          ["transcriber", "llm", "synthesizer"]
-                        ]
-                      },
-                      "task_type": "conversation",
-                      "task_config": {
-                        "voicemail": false,
-                        "optimize_latency": true,
-                        "hangup_after_silence": 10,
-                        "incremental_delay": 1200,
-                        "number_of_words_for_interruption": 2,
-                        "interruption_backoff_period": 0,
-                        "hangup_after_LLMCall": false,
-                        "call_cancellation_prompt": "",
-                        "call_hangup_message": null,
-                        "backchanneling": false,
-                        "backchanneling_message_gap": 5,
-                        "backchanneling_start_delay": 5,
-                        "ambient_noise": false,
-                        "ambient_noise_track": "office-ambience",
-                        "call_terminate": 300,
-                        "use_fillers": false,
-                        "trigger_user_online_message_after": 6,
-                        "check_user_online_message": "Hey, are you still there",
-                        "check_if_user_online": true,
-                        "generate_precise_transcript": false
-                      }
-                    }
-                  ]
                 }
               }
             }
@@ -1035,7 +875,11 @@
                                           "items": {
                                             "type": "string"
                                           },
-                                          "example": ["transcriber", "llm", "synthesizer"]
+                                          "example": [
+                                            "transcriber",
+                                            "llm",
+                                            "synthesizer"
+                                          ]
                                         }
                                       }
                                     }
@@ -1047,24 +891,46 @@
                                       "llm_agent": {
                                         "type": "object",
                                         "properties": {
-                                          "agent_flow_type": { "type": "string" },
+                                          "agent_flow_type": {
+                                            "type": "string"
+                                          },
                                           "agent_type": { "type": "string" },
                                           "llm_config": {
                                             "type": "object",
                                             "properties": {
                                               "model": { "type": "string" },
-                                              "max_tokens": { "type": "integer" },
+                                              "max_tokens": {
+                                                "type": "integer"
+                                              },
                                               "family": { "type": "string" },
-                                              "temperature": { "type": "number" },
-                                              "request_json": { "type": "boolean" },
+                                              "temperature": {
+                                                "type": "number"
+                                              },
+                                              "request_json": {
+                                                "type": "boolean"
+                                              },
                                               "stop": { "nullable": true },
                                               "top_k": { "type": "integer" },
                                               "top_p": { "type": "number" },
                                               "min_p": { "type": "number" },
-                                              "frequency_penalty": { "type": "number" },
-                                              "presence_penalty": { "type": "number" },
+                                              "frequency_penalty": {
+                                                "type": "number"
+                                              },
+                                              "presence_penalty": {
+                                                "type": "number"
+                                              },
                                               "provider": { "type": "string" },
-                                              "context_data": { "type": "object" }
+                                              "base_url": { "type": "string" },
+                                              "agent_flow_type": {
+                                                "type": "string"
+                                              },
+                                              "routes": { "type": "array" },
+                                              "extraction_details": {
+                                                "type": "object"
+                                              },
+                                              "summary_details": {
+                                                "type": "object"
+                                              }
                                             }
                                           }
                                         }
@@ -1092,7 +958,9 @@
                                           "model": { "type": "string" },
                                           "language": { "type": "string" },
                                           "stream": { "type": "boolean" },
-                                          "sampling_rate": { "type": "integer" },
+                                          "sampling_rate": {
+                                            "type": "integer"
+                                          },
                                           "encoding": { "type": "string" },
                                           "endpointing": { "type": "integer" },
                                           "keywords": { "type": "string" },
@@ -1116,7 +984,10 @@
                                       },
                                       "api_tools": {
                                         "type": "object",
-                                        "description": "API tools to use."
+                                        "properties": {
+                                          "tools": { "type": "array" },
+                                          "tool_params": { "type": "object" }
+                                        }
                                       }
                                     }
                                   },
@@ -1126,24 +997,53 @@
                                     "properties": {
                                       "voicemail": { "type": "boolean" },
                                       "optimize_latency": { "type": "boolean" },
-                                      "hangup_after_silence": { "type": "integer" },
-                                      "incremental_delay": { "type": "integer" },
-                                      "number_of_words_for_interruption": { "type": "integer" },
-                                      "interruption_backoff_period": { "type": "integer" },
-                                      "hangup_after_LLMCall": { "type": "boolean" },
-                                      "call_cancellation_prompt": { "type": "string" },
-                                      "call_hangup_message": { "nullable": true, "type": "string" },
+                                      "hangup_after_silence": {
+                                        "type": "integer"
+                                      },
+                                      "incremental_delay": {
+                                        "type": "integer"
+                                      },
+                                      "number_of_words_for_interruption": {
+                                        "type": "integer"
+                                      },
+                                      "interruption_backoff_period": {
+                                        "type": "integer"
+                                      },
+                                      "hangup_after_LLMCall": {
+                                        "type": "boolean"
+                                      },
+                                      "call_cancellation_prompt": {
+                                        "type": "string"
+                                      },
+                                      "call_hangup_message": {
+                                        "nullable": true,
+                                        "type": "string"
+                                      },
                                       "backchanneling": { "type": "boolean" },
-                                      "backchanneling_message_gap": { "type": "integer" },
-                                      "backchanneling_start_delay": { "type": "integer" },
+                                      "backchanneling_message_gap": {
+                                        "type": "integer"
+                                      },
+                                      "backchanneling_start_delay": {
+                                        "type": "integer"
+                                      },
                                       "ambient_noise": { "type": "boolean" },
-                                      "ambient_noise_track": { "type": "string" },
+                                      "ambient_noise_track": {
+                                        "type": "string"
+                                      },
                                       "call_terminate": { "type": "integer" },
                                       "use_fillers": { "type": "boolean" },
-                                      "trigger_user_online_message_after": { "type": "integer" },
-                                      "check_user_online_message": { "type": "string" },
-                                      "check_if_user_online": { "type": "boolean" },
-                                      "generate_precise_transcript": { "type": "boolean" }
+                                      "trigger_user_online_message_after": {
+                                        "type": "integer"
+                                      },
+                                      "check_user_online_message": {
+                                        "type": "string"
+                                      },
+                                      "check_if_user_online": {
+                                        "type": "boolean"
+                                      },
+                                      "generate_precise_transcript": {
+                                        "type": "boolean"
+                                      }
                                     }
                                   }
                                 }
@@ -1189,125 +1089,6 @@
                         }
                       }
                     }
-                  }
-                },
-                "example": {
-                  "success": true,
-                  "message": "Agent fetched successfully",
-                  "data": {
-                    "_id": "5f3c1e8a9d7b134c8a2fbe66",
-                    "agent_config": {
-                      "agent_name": "New Agent updeted",
-                      "agent_type": "conversation",
-                      "tasks": [
-                        {
-                          "tools_config": {
-                            "llm_agent": {
-                              "agent_flow_type": "streaming",
-                              "agent_type": "simple_llm_agent",
-                              "routes": null,
-                              "llm_config": {
-                                "model": "gpt-3.5-turbo",
-                                "max_tokens": 150,
-                                "family": "openai",
-                                "temperature": 0.2,
-                                "request_json": false,
-                                "top_k": 0,
-                                "top_p": 0.9,
-                                "min_p": 0.1,
-                                "frequency_penalty": 0.0,
-                                "presence_penalty": 0.0,
-                                "provider": "openai",
-                                "base_url": null,
-                                "agent_flow_type": "streaming"
-                               
-                              }
-                            },
-                            "synthesizer": {
-                              "provider": "deepgram",
-                              "provider_config": {
-                                "voice": "Asteria",
-                                "model": "aura-asteria-en"
-                              },
-                              "stream": true,
-                              "buffer_size": 150,
-                              "audio_format": "wav",
-                              "caching": true
-                            },
-                            "transcriber": {
-                              "model": "nova-2",
-                              "language": "en",
-                              "stream": true,
-                              "sampling_rate": 16000,
-                              "encoding": "linear16",
-                              "endpointing": 700,
-                              "keywords": "",
-                              "task": "transcribe",
-                              "provider": "deepgram"
-                            },
-                            "input": {
-                              "provider": "twilio",
-                              "format": "wav"
-                            },
-                            "output": {
-                              "provider": "twilio",
-                              "format": "wav"
-                            },
-                            "api_tools": {
-                              "type": "object",
-                              "description": "API tools to use."
-                            }
-                          },
-                          "toolchain": {
-                            "execution": "parallel",
-                            "pipelines": [
-                              [
-                                "transcriber",
-                                "llm",
-                                "synthesizer"
-                              ]
-                            ]
-                          },
-                          "task_type": "conversation",
-                          "task_config": {
-                            "voicemail": false,
-                            "optimize_latency": true,
-                            "hangup_after_silence": 10,
-                            "incremental_delay": 1200,
-                            "number_of_words_for_interruption": 2,
-                            "interruption_backoff_period": 0,
-                            "hangup_after_LLMCall": false,
-                            "call_cancellation_prompt": "",
-                            "call_hangup_message": null,
-                            "backchanneling": false,
-                            "backchanneling_message_gap": 5,
-                            "backchanneling_start_delay": 5,
-                            "ambient_noise": false,
-                            "ambient_noise_track": "office-ambience",
-                            "call_terminate": 300,
-                            "use_fillers": false,
-                            "trigger_user_online_message_after": 6,
-                            "check_user_online_message": "Hey, are you still there",
-                            "check_if_user_online": true,
-                            "generate_precise_transcript": false
-                          }
-                        }
-                      ],
-                      "agent_welcome_message": "Hello, how can I help you today?"
-                    },
-                    "agent_prompts": {
-                      "task_1": {
-                        "system_prompt": "You are a helpful assistant."
-                      }
-                    },
-                    "assistant_status": "updated",
-                    "org_id": "7e1d3a9c8f244eb7a65fc230",
-                    "created_at": "2025-05-20T09:33:41.102000",
-                    "updated_at": "2025-05-20T09:53:27.811000",
-                    "agent_id": "a3f8d4b2-7e19-4c3a-95de-1a6fcb9b4d70",
-                    "created_by": "68188d4c14144e87791de7d5",
-                    "updated_by": "68188d4c14144e87791de7d5",
-                    "webhook_url": null
                   }
                 }
               }
@@ -1372,17 +1153,17 @@
                                   "type": "object",
                                   "description": "Configuration for the LLM agent component.",
                                   "properties": {
-                                    "agent_flow_type": { 
+                                    "agent_flow_type": {
                                       "type": "string",
                                       "description": "Type of agent flow (e.g., streaming, batch).",
                                       "example": "streaming"
                                     },
-                                    "agent_type": { 
+                                    "agent_type": {
                                       "type": "string",
                                       "description": "Type of LLM agent implementation.",
                                       "example": "simple_llm_agent"
                                     },
-                                    "routes": { 
+                                    "routes": {
                                       "nullable": true,
                                       "description": "Routing configuration for the agent.",
                                       "example": null
@@ -1391,87 +1172,87 @@
                                       "type": "object",
                                       "description": "Configuration for the language model.",
                                       "properties": {
-                                        "model": { 
+                                        "model": {
                                           "type": "string",
                                           "description": "Name of the language model to use.",
                                           "example": "gpt-3.5-turbo"
                                         },
-                                        "max_tokens": { 
+                                        "max_tokens": {
                                           "type": "integer",
                                           "description": "Maximum number of tokens to generate.",
                                           "example": 150
                                         },
-                                        "family": { 
+                                        "family": {
                                           "type": "string",
                                           "description": "Model family or provider.",
                                           "example": "openai"
                                         },
-                                        "temperature": { 
+                                        "temperature": {
                                           "type": "number",
                                           "description": "Sampling temperature for generation.",
                                           "example": 0.2
                                         },
-                                        "request_json": { 
+                                        "request_json": {
                                           "type": "boolean",
                                           "description": "Whether to request JSON formatted responses.",
                                           "example": false
                                         },
-                                        "stop": { 
+                                        "stop": {
                                           "nullable": true,
                                           "description": "Stop sequences for generation.",
                                           "example": null
                                         },
-                                        "top_k": { 
+                                        "top_k": {
                                           "type": "integer",
                                           "description": "Top-k sampling parameter.",
                                           "example": 0
                                         },
-                                        "top_p": { 
+                                        "top_p": {
                                           "type": "number",
                                           "description": "Top-p sampling parameter.",
                                           "example": 0.9
                                         },
-                                        "min_p": { 
+                                        "min_p": {
                                           "type": "number",
                                           "description": "Minimum probability threshold.",
                                           "example": 0.1
                                         },
-                                        "frequency_penalty": { 
+                                        "frequency_penalty": {
                                           "type": "number",
                                           "description": "Penalty for token frequency.",
                                           "example": 0.0
                                         },
-                                        "presence_penalty": { 
+                                        "presence_penalty": {
                                           "type": "number",
                                           "description": "Penalty for token presence.",
                                           "example": 0.0
                                         },
-                                        "provider": { 
+                                        "provider": {
                                           "type": "string",
                                           "description": "LLM provider name.",
                                           "example": "openai"
                                         },
-                                        "base_url": { 
+                                        "base_url": {
                                           "nullable": true,
                                           "description": "Base URL for API calls.",
                                           "example": null
                                         },
-                                        "routes": { 
+                                        "routes": {
                                           "nullable": true,
                                           "description": "API routing configuration.",
                                           "example": null
                                         },
-                                        "agent_flow_type": { 
+                                        "agent_flow_type": {
                                           "type": "string",
                                           "description": "Type of agent flow for this configuration.",
                                           "example": "streaming"
                                         },
-                                        "extraction_details": { 
+                                        "extraction_details": {
                                           "nullable": true,
                                           "description": "Configuration for information extraction.",
                                           "example": null
                                         },
-                                        "summarization_details": { 
+                                        "summarization_details": {
                                           "nullable": true,
                                           "description": "Configuration for text summarization.",
                                           "example": null
@@ -1484,7 +1265,7 @@
                                   "type": "object",
                                   "description": "Configuration for text-to-speech synthesis.",
                                   "properties": {
-                                    "provider": { 
+                                    "provider": {
                                       "type": "string",
                                       "description": "TTS provider name.",
                                       "example": "deepgram"
@@ -1493,34 +1274,34 @@
                                       "type": "object",
                                       "description": "Provider-specific configuration.",
                                       "properties": {
-                                        "voice": { 
+                                        "voice": {
                                           "type": "string",
                                           "description": "Voice ID or name to use.",
                                           "example": "Asteria"
                                         },
-                                        "model": { 
+                                        "model": {
                                           "type": "string",
                                           "description": "TTS model to use.",
                                           "example": "aura-asteria-en"
                                         }
                                       }
                                     },
-                                    "stream": { 
+                                    "stream": {
                                       "type": "boolean",
                                       "description": "Whether to stream the audio output.",
                                       "example": true
                                     },
-                                    "buffer_size": { 
+                                    "buffer_size": {
                                       "type": "integer",
                                       "description": "Size of audio buffer in milliseconds.",
                                       "example": 150
                                     },
-                                    "audio_format": { 
+                                    "audio_format": {
                                       "type": "string",
                                       "description": "Format of the audio output.",
                                       "example": "wav"
                                     },
-                                    "caching": { 
+                                    "caching": {
                                       "type": "boolean",
                                       "description": "Whether to cache generated audio.",
                                       "example": true
@@ -1531,47 +1312,47 @@
                                   "type": "object",
                                   "description": "Configuration for speech-to-text transcription.",
                                   "properties": {
-                                    "model": { 
+                                    "model": {
                                       "type": "string",
                                       "description": "Transcription model to use.",
                                       "example": "nova-2"
                                     },
-                                    "language": { 
+                                    "language": {
                                       "type": "string",
                                       "description": "Language code for transcription.",
                                       "example": "en"
                                     },
-                                    "stream": { 
+                                    "stream": {
                                       "type": "boolean",
                                       "description": "Whether to stream the transcription.",
                                       "example": true
                                     },
-                                    "sampling_rate": { 
+                                    "sampling_rate": {
                                       "type": "integer",
                                       "description": "Audio sampling rate in Hz.",
                                       "example": 16000
                                     },
-                                    "encoding": { 
+                                    "encoding": {
                                       "type": "string",
                                       "description": "Audio encoding format.",
                                       "example": "linear16"
                                     },
-                                    "endpointing": { 
+                                    "endpointing": {
                                       "type": "integer",
                                       "description": "Endpoint detection threshold in milliseconds.",
                                       "example": 700
                                     },
-                                    "keywords": { 
+                                    "keywords": {
                                       "type": "string",
                                       "description": "Keywords to boost in transcription.",
                                       "example": ""
                                     },
-                                    "task": { 
+                                    "task": {
                                       "type": "string",
                                       "description": "Transcription task type.",
                                       "example": "transcribe"
                                     },
-                                    "provider": { 
+                                    "provider": {
                                       "type": "string",
                                       "description": "Transcription provider name.",
                                       "example": "deepgram"
@@ -1582,12 +1363,12 @@
                                   "type": "object",
                                   "description": "Configuration for audio input handling.",
                                   "properties": {
-                                    "provider": { 
+                                    "provider": {
                                       "type": "string",
                                       "description": "Input provider name.",
                                       "example": "twilio"
                                     },
-                                    "format": { 
+                                    "format": {
                                       "type": "string",
                                       "description": "Input audio format.",
                                       "example": "wav"
@@ -1598,12 +1379,12 @@
                                   "type": "object",
                                   "description": "Configuration for audio output handling.",
                                   "properties": {
-                                    "provider": { 
+                                    "provider": {
                                       "type": "string",
                                       "description": "Output provider name.",
                                       "example": "twilio"
                                     },
-                                    "format": { 
+                                    "format": {
                                       "type": "string",
                                       "description": "Output audio format.",
                                       "example": "wav"
@@ -1612,7 +1393,11 @@
                                 },
                                 "api_tools": {
                                   "type": "object",
-                                  "description": "API tools to use."
+                                  "description": "API tools to use.",
+                                  "properties": {
+                                    "tools": { "type": "array" },
+                                    "tool_params": { "type": "object" }
+                                  }
                                 }
                               }
                             },
@@ -1620,103 +1405,103 @@
                               "type": "object",
                               "description": "Configuration for task-specific behavior.",
                               "properties": {
-                                "voicemail": { 
+                                "voicemail": {
                                   "type": "boolean",
                                   "description": "Whether to handle voicemail detection.",
                                   "example": false
                                 },
-                                "optimize_latency": { 
+                                "optimize_latency": {
                                   "type": "boolean",
                                   "description": "Whether to optimize for low latency.",
                                   "example": true
                                 },
-                                "hangup_after_silence": { 
+                                "hangup_after_silence": {
                                   "type": "integer",
                                   "description": "Seconds of silence before hanging up.",
                                   "example": 10
                                 },
-                                "incremental_delay": { 
+                                "incremental_delay": {
                                   "type": "integer",
                                   "description": "Delay between responses in milliseconds.",
                                   "example": 1200
                                 },
-                                "number_of_words_for_interruption": { 
+                                "number_of_words_for_interruption": {
                                   "type": "integer",
                                   "description": "Number of words before allowing interruption.",
                                   "example": 2
                                 },
-                                "interruption_backoff_period": { 
+                                "interruption_backoff_period": {
                                   "type": "integer",
                                   "description": "Delay before allowing interruption in milliseconds.",
                                   "example": 0
                                 },
-                                "hangup_after_LLMCall": { 
+                                "hangup_after_LLMCall": {
                                   "type": "boolean",
                                   "description": "Whether to hang up after LLM response.",
                                   "example": false
                                 },
-                                "call_cancellation_prompt": { 
+                                "call_cancellation_prompt": {
                                   "type": "string",
                                   "description": "Message to play when call is cancelled.",
                                   "example": ""
                                 },
-                                "call_hangup_message": { 
-                                  "nullable": true, 
+                                "call_hangup_message": {
+                                  "nullable": true,
                                   "type": "string",
                                   "description": "Message to play before hanging up.",
                                   "example": null
                                 },
-                                "backchanneling": { 
+                                "backchanneling": {
                                   "type": "boolean",
                                   "description": "Whether to use backchanneling.",
                                   "example": false
                                 },
-                                "backchanneling_message_gap": { 
+                                "backchanneling_message_gap": {
                                   "type": "integer",
                                   "description": "Gap between backchanneling messages in seconds.",
                                   "example": 5
                                 },
-                                "backchanneling_start_delay": { 
+                                "backchanneling_start_delay": {
                                   "type": "integer",
                                   "description": "Delay before starting backchanneling in seconds.",
                                   "example": 5
                                 },
-                                "ambient_noise": { 
+                                "ambient_noise": {
                                   "type": "boolean",
                                   "description": "Whether to add ambient noise.",
                                   "example": false
                                 },
-                                "ambient_noise_track": { 
+                                "ambient_noise_track": {
                                   "type": "string",
                                   "description": "Ambient noise track to use.",
                                   "example": "office-ambience"
                                 },
-                                "call_terminate": { 
+                                "call_terminate": {
                                   "type": "integer",
                                   "description": "Maximum call duration in seconds.",
                                   "example": 300
                                 },
-                                "use_fillers": { 
+                                "use_fillers": {
                                   "type": "boolean",
                                   "description": "Whether to use filler words.",
                                   "example": false
                                 },
-                                "trigger_user_online_message_after": { 
+                                "trigger_user_online_message_after": {
                                   "type": "integer",
                                   "description": "Seconds before checking if user is online.",
                                   "example": 6
                                 },
-                                "check_user_online_message": { 
+                                "check_user_online_message": {
                                   "type": "string",
                                   "description": "Message to play when checking if user is online.",
                                   "example": "Hey, are you still there"
                                 },
-                                "check_if_user_online": { 
+                                "check_if_user_online": {
                                   "type": "boolean",
                                   "description": "Whether to check if user is online.",
                                   "example": true
                                 },
-                                "generate_precise_transcript": { 
+                                "generate_precise_transcript": {
                                   "type": "boolean",
                                   "description": "Whether to generate detailed transcript.",
                                   "example": false
@@ -1746,110 +1531,54 @@
                                       "type": "string"
                                     }
                                   },
-                                  "example": [["transcriber", "llm", "synthesizer"]]
+                                  "example": [
+                                    ["transcriber", "llm", "synthesizer"]
+                                  ]
                                 }
                               }
                             }
                           }
                         }
+                      },
+                      "agent_welcome_message": {
+                        "type": "string",
+                        "description": "Welcome message for the agent.",
+                        "example": "Hello, how can I help you today?"
                       }
                     }
+                  },
+                  "agent_prompts": {
+                    "type": "object",
+                    "description": "Prompts for the agent.",
+                    "properties": {
+                      "task_1": { "type": "object" }
+                    }
+                  },
+                  "assistant_status": {
+                    "type": "string",
+                    "description": "Current status of the agent.",
+                    "example": "updated"
+                  },
+                  "user_id": {
+                    "type": "string",
+                    "description": "User ID.",
+                    "example": "7e1d3a9c8f244eb7a65fc230"
+                  },
+                  "agent_id": {
+                    "type": "string",
+                    "description": "Agent ID.",
+                    "example": "a3f8d4b2-7e19-4c3a-95de-1a6fcb9b4d70"
+                  },
+                  "created_at": {
+                    "type": "string",
+                    "description": "Creation date of the agent.",
+                    "example": "2025-01-20T15:57:17.998000"
+                  },
+                  "updated_at": {
+                    "type": "string",
+                    "description": "Last update date of the agent.",
+                    "example": "2025-01-20T15:57:17.998000"
                   }
-                }
-              },
-              "example": {
-                "agent_config": {
-                  "agent_name": "Updated Bank Survey Agent",
-                  "agent_type": "conversation",
-                  "tasks": [
-                    {
-                      "tools_config": {
-                        "llm_agent": {
-                          "agent_flow_type": "streaming",
-                          "agent_type": "simple_llm_agent",
-                          "routes": null,
-                          "llm_config": {
-                            "model": "gpt-3.5-turbo",
-                            "max_tokens": 150,
-                            "family": "openai",
-                            "temperature": 0.2,
-                            "request_json": false,
-                            "stop": null,
-                            "top_k": 0,
-                            "top_p": 0.9,
-                            "min_p": 0.1,
-                            "frequency_penalty": 0.0,
-                            "presence_penalty": 0.0,
-                            "provider": "openai",
-                            "context_data": null
-                          }
-                        },
-                        "synthesizer": {
-                          "provider": "deepgram",
-                          "provider_config": {
-                            "voice": "Asteria",
-                            "model": "aura-asteria-en"
-                          },
-                          "stream": true,
-                          "buffer_size": 150,
-                          "audio_format": "wav",
-                          "caching": true
-                        },
-                        "transcriber": {
-                          "model": "nova-2",
-                          "language": "en",
-                          "stream": true,
-                          "sampling_rate": 16000,
-                          "encoding": "linear16",
-                          "endpointing": 700,
-                          "keywords": "",
-                          "task": "transcribe",
-                          "provider": "deepgram"
-                        },
-                        "input": {
-                          "provider": "twilio",
-                          "format": "wav"
-                        },
-                        "output": {
-                          "provider": "twilio",
-                          "format": "wav"
-                        },
-                        "api_tools": {
-                            "type": "object",
-                            "description": "API tools to use."
-                        }
-                      },
-                      "toolchain": {
-                        "execution": "parallel",
-                        "pipelines": [
-                          ["transcriber", "llm", "synthesizer"]
-                        ]
-                      },
-                      "task_type": "conversation",
-                      "task_config": {
-                        "voicemail": false,
-                        "optimize_latency": true,
-                        "hangup_after_silence": 10,
-                        "incremental_delay": 1200,
-                        "number_of_words_for_interruption": 2,
-                        "interruption_backoff_period": 0,
-                        "hangup_after_LLMCall": false,
-                        "call_cancellation_prompt": "",
-                        "call_hangup_message": null,
-                        "backchanneling": false,
-                        "backchanneling_message_gap": 5,
-                        "backchanneling_start_delay": 5,
-                        "ambient_noise": false,
-                        "ambient_noise_track": "office-ambience",
-                        "call_terminate": 300,
-                        "use_fillers": false,
-                        "trigger_user_online_message_after": 6,
-                        "check_user_online_message": "Hey, are you still there",
-                        "check_if_user_online": true,
-                        "generate_precise_transcript": false
-                      }
-                    }
-                  ]
                 }
               }
             }
@@ -1906,29 +1635,89 @@
                                       "llm_agent": {
                                         "type": "object",
                                         "properties": {
-                                          "agent_flow_type": { "type": "string", "example": "streaming" },
-                                          "agent_type": { "type": "string", "example": "simple_llm_agent" },
-                                          "routes": { "nullable": true, "example": null },
+                                          "agent_flow_type": {
+                                            "type": "string",
+                                            "example": "streaming"
+                                          },
+                                          "agent_type": {
+                                            "type": "string",
+                                            "example": "simple_llm_agent"
+                                          },
+                                          "routes": {
+                                            "nullable": true,
+                                            "example": null
+                                          },
                                           "llm_config": {
                                             "type": "object",
                                             "properties": {
-                                              "model": { "type": "string", "example": "gpt-3.5-turbo" },
-                                              "max_tokens": { "type": "integer", "example": 150 },
-                                              "family": { "type": "string", "example": "openai" },
-                                              "temperature": { "type": "number", "example": 0.2 },
-                                              "request_json": { "type": "boolean", "example": false },
-                                              "stop": { "nullable": true, "example": null },
-                                              "top_k": { "type": "integer", "example": 0 },
-                                              "top_p": { "type": "number", "example": 0.9 },
-                                              "min_p": { "type": "number", "example": 0.1 },
-                                              "frequency_penalty": { "type": "number", "example": 0.0 },
-                                              "presence_penalty": { "type": "number", "example": 0.0 },
-                                              "provider": { "type": "string", "example": "openai" },
-                                              "base_url": { "nullable": true, "example": null },
-                                              "routes": { "nullable": true, "example": null },
-                                              "agent_flow_type": { "type": "string", "example": "streaming" },
-                                              "extraction_details": { "nullable": true, "example": null },
-                                              "summarization_details": { "nullable": true, "example": null }
+                                              "model": {
+                                                "type": "string",
+                                                "example": "gpt-3.5-turbo"
+                                              },
+                                              "max_tokens": {
+                                                "type": "integer",
+                                                "example": 150
+                                              },
+                                              "family": {
+                                                "type": "string",
+                                                "example": "openai"
+                                              },
+                                              "temperature": {
+                                                "type": "number",
+                                                "example": 0.2
+                                              },
+                                              "request_json": {
+                                                "type": "boolean",
+                                                "example": false
+                                              },
+                                              "stop": {
+                                                "nullable": true,
+                                                "example": null
+                                              },
+                                              "top_k": {
+                                                "type": "integer",
+                                                "example": 0
+                                              },
+                                              "top_p": {
+                                                "type": "number",
+                                                "example": 0.9
+                                              },
+                                              "min_p": {
+                                                "type": "number",
+                                                "example": 0.1
+                                              },
+                                              "frequency_penalty": {
+                                                "type": "number",
+                                                "example": 0.0
+                                              },
+                                              "presence_penalty": {
+                                                "type": "number",
+                                                "example": 0.0
+                                              },
+                                              "provider": {
+                                                "type": "string",
+                                                "example": "openai"
+                                              },
+                                              "base_url": {
+                                                "nullable": true,
+                                                "example": null
+                                              },
+                                              "routes": {
+                                                "nullable": true,
+                                                "example": null
+                                              },
+                                              "agent_flow_type": {
+                                                "type": "string",
+                                                "example": "streaming"
+                                              },
+                                              "extraction_details": {
+                                                "nullable": true,
+                                                "example": null
+                                              },
+                                              "summarization_details": {
+                                                "nullable": true,
+                                                "example": null
+                                              }
                                             }
                                           }
                                         }
@@ -1936,46 +1725,106 @@
                                       "synthesizer": {
                                         "type": "object",
                                         "properties": {
-                                          "provider": { "type": "string", "example": "deepgram" },
+                                          "provider": {
+                                            "type": "string",
+                                            "example": "deepgram"
+                                          },
                                           "provider_config": {
                                             "type": "object",
                                             "properties": {
-                                              "voice": { "type": "string", "example": "Asteria" },
-                                              "model": { "type": "string", "example": "aura-asteria-en" }
+                                              "voice": {
+                                                "type": "string",
+                                                "example": "Asteria"
+                                              },
+                                              "model": {
+                                                "type": "string",
+                                                "example": "aura-asteria-en"
+                                              }
                                             }
                                           },
-                                          "stream": { "type": "boolean", "example": true },
-                                          "buffer_size": { "type": "integer", "example": 150 },
-                                          "audio_format": { "type": "string", "example": "wav" },
-                                          "caching": { "type": "boolean", "example": true }
+                                          "stream": {
+                                            "type": "boolean",
+                                            "example": true
+                                          },
+                                          "buffer_size": {
+                                            "type": "integer",
+                                            "example": 150
+                                          },
+                                          "audio_format": {
+                                            "type": "string",
+                                            "example": "wav"
+                                          },
+                                          "caching": {
+                                            "type": "boolean",
+                                            "example": true
+                                          }
                                         }
                                       },
                                       "transcriber": {
                                         "type": "object",
                                         "properties": {
-                                          "model": { "type": "string", "example": "nova-2" },
-                                          "language": { "type": "string", "example": "en" },
-                                          "stream": { "type": "boolean", "example": true },
-                                          "sampling_rate": { "type": "integer", "example": 16000 },
-                                          "encoding": { "type": "string", "example": "linear16" },
-                                          "endpointing": { "type": "integer", "example": 700 },
-                                          "keywords": { "type": "string", "example": "" },
-                                          "task": { "type": "string", "example": "transcribe" },
-                                          "provider": { "type": "string", "example": "deepgram" }
+                                          "model": {
+                                            "type": "string",
+                                            "example": "nova-2"
+                                          },
+                                          "language": {
+                                            "type": "string",
+                                            "example": "en"
+                                          },
+                                          "stream": {
+                                            "type": "boolean",
+                                            "example": true
+                                          },
+                                          "sampling_rate": {
+                                            "type": "integer",
+                                            "example": 16000
+                                          },
+                                          "encoding": {
+                                            "type": "string",
+                                            "example": "linear16"
+                                          },
+                                          "endpointing": {
+                                            "type": "integer",
+                                            "example": 700
+                                          },
+                                          "keywords": {
+                                            "type": "string",
+                                            "example": ""
+                                          },
+                                          "task": {
+                                            "type": "string",
+                                            "example": "transcribe"
+                                          },
+                                          "provider": {
+                                            "type": "string",
+                                            "example": "deepgram"
+                                          }
                                         }
                                       },
                                       "input": {
                                         "type": "object",
                                         "properties": {
-                                          "provider": { "type": "string", "example": "twilio" },
-                                          "format": { "type": "string", "example": "wav" }
+                                          "provider": {
+                                            "type": "string",
+                                            "example": "twilio"
+                                          },
+                                          "format": {
+                                            "type": "string",
+                                            "example": "wav"
+                                          }
                                         }
                                       },
                                       "output": {
                                         "type": "object",
                                         "properties": {
-                                          "provider": { "type": "string", "example": "twilio" },
-                                          "format": { "type": "string", "example": "wav" }
+                                          "provider": {
+                                            "type": "string",
+                                            "example": "twilio"
+                                          },
+                                          "format": {
+                                            "type": "string",
+                                            "example": "wav"
+                                          }
                                         }
                                       },
                                       "api_tools": {
@@ -1987,41 +1836,112 @@
                                   "toolchain": {
                                     "type": "object",
                                     "properties": {
-                                      "execution": { "type": "string", "example": "parallel" },
+                                      "execution": {
+                                        "type": "string",
+                                        "example": "parallel"
+                                      },
                                       "pipelines": {
                                         "type": "array",
                                         "items": {
                                           "type": "array",
                                           "items": { "type": "string" },
-                                          "example": ["transcriber", "llm", "synthesizer"]
+                                          "example": [
+                                            "transcriber",
+                                            "llm",
+                                            "synthesizer"
+                                          ]
                                         }
                                       }
                                     }
                                   },
-                                  "task_type": { "type": "string", "example": "conversation" },
+                                  "task_type": {
+                                    "type": "string",
+                                    "example": "conversation"
+                                  },
                                   "task_config": {
                                     "type": "object",
                                     "properties": {
-                                      "voicemail": { "type": "boolean", "example": false },
-                                      "optimize_latency": { "type": "boolean", "example": true },
-                                      "hangup_after_silence": { "type": "integer", "example": 10 },
-                                      "incremental_delay": { "type": "integer", "example": 1200 },
-                                      "number_of_words_for_interruption": { "type": "integer", "example": 2 },
-                                      "interruption_backoff_period": { "type": "integer", "example": 0 },
-                                      "hangup_after_LLMCall": { "type": "boolean", "example": false },
-                                      "call_cancellation_prompt": { "type": "string", "example": "" },
-                                      "call_hangup_message": { "nullable": true, "type": "string", "example": null },
-                                      "backchanneling": { "type": "boolean", "example": false },
-                                      "backchanneling_message_gap": { "type": "integer", "example": 5 },
-                                      "backchanneling_start_delay": { "type": "integer", "example": 5 },
-                                      "ambient_noise": { "type": "boolean", "example": false },
-                                      "ambient_noise_track": { "type": "string", "example": "office-ambience" },
-                                      "call_terminate": { "type": "integer", "example": 300 },
-                                      "use_fillers": { "type": "boolean", "example": false },
-                                      "trigger_user_online_message_after": { "type": "integer", "example": 6 },
-                                      "check_user_online_message": { "type": "string", "example": "Hey, are you still there" },
-                                      "check_if_user_online": { "type": "boolean", "example": true },
-                                      "generate_precise_transcript": { "type": "boolean", "example": false }
+                                      "voicemail": {
+                                        "type": "boolean",
+                                        "example": false
+                                      },
+                                      "optimize_latency": {
+                                        "type": "boolean",
+                                        "example": true
+                                      },
+                                      "hangup_after_silence": {
+                                        "type": "integer",
+                                        "example": 10
+                                      },
+                                      "incremental_delay": {
+                                        "type": "integer",
+                                        "example": 1200
+                                      },
+                                      "number_of_words_for_interruption": {
+                                        "type": "integer",
+                                        "example": 2
+                                      },
+                                      "interruption_backoff_period": {
+                                        "type": "integer",
+                                        "example": 0
+                                      },
+                                      "hangup_after_LLMCall": {
+                                        "type": "boolean",
+                                        "example": false
+                                      },
+                                      "call_cancellation_prompt": {
+                                        "type": "string",
+                                        "example": ""
+                                      },
+                                      "call_hangup_message": {
+                                        "nullable": true,
+                                        "type": "string",
+                                        "example": null
+                                      },
+                                      "backchanneling": {
+                                        "type": "boolean",
+                                        "example": false
+                                      },
+                                      "backchanneling_message_gap": {
+                                        "type": "integer",
+                                        "example": 5
+                                      },
+                                      "backchanneling_start_delay": {
+                                        "type": "integer",
+                                        "example": 5
+                                      },
+                                      "ambient_noise": {
+                                        "type": "boolean",
+                                        "example": false
+                                      },
+                                      "ambient_noise_track": {
+                                        "type": "string",
+                                        "example": "office-ambience"
+                                      },
+                                      "call_terminate": {
+                                        "type": "integer",
+                                        "example": 300
+                                      },
+                                      "use_fillers": {
+                                        "type": "boolean",
+                                        "example": false
+                                      },
+                                      "trigger_user_online_message_after": {
+                                        "type": "integer",
+                                        "example": 6
+                                      },
+                                      "check_user_online_message": {
+                                        "type": "string",
+                                        "example": "Hey, are you still there"
+                                      },
+                                      "check_if_user_online": {
+                                        "type": "boolean",
+                                        "example": true
+                                      },
+                                      "generate_precise_transcript": {
+                                        "type": "boolean",
+                                        "example": false
+                                      }
                                     }
                                   }
                                 }
@@ -2115,9 +2035,7 @@
                   "detail": [
                     {
                       "type": "missing",
-                      "loc": [
-                        "body"
-                      ],
+                      "loc": ["body"],
                       "msg": "Field required",
                       "input": null,
                       "url": "https://errors.pydantic.dev/2.5/v/missing"
@@ -2357,7 +2275,7 @@
                         "created_by": "68188d4c14144e87791de7d5",
                         "updated_by": "68188d4c14144e87791de7d5",
                         "webhook_url": null
-                      } 
+                      }
                     ],
                     "pagination": {
                       "skip": 0,
@@ -2500,9 +2418,7 @@
                   "detail": [
                     {
                       "type": "missing",
-                      "loc": [
-                        "body"
-                      ],
+                      "loc": ["body"],
                       "msg": "Field required",
                       "input": null,
                       "url": "https://errors.pydantic.dev/2.5/v/missing"
@@ -3070,7 +2986,11 @@
                                 "items": {
                                   "type": "string"
                                 },
-                                "example": ["4e9a1f6b7d2c3e9a1b0d4f72","a7c5d9f123b48e6c7f0a1d2b","c3b1a7e4f9d2b06c8e4a3f71"]
+                                "example": [
+                                  "4e9a1f6b7d2c3e9a1b0d4f72",
+                                  "a7c5d9f123b48e6c7f0a1d2b",
+                                  "c3b1a7e4f9d2b06c8e4a3f71"
+                                ]
                               }
                             }
                           }
@@ -3146,7 +3066,11 @@
                               "items": {
                                 "type": "string"
                               },
-                              "example": ["67a6085623d73e2e471fe548", "67bd8dc113a858bd41fa3372", "67bd8dc213a858bd41fa337d"]
+                              "example": [
+                                "67a6085623d73e2e471fe548",
+                                "67bd8dc113a858bd41fa3372",
+                                "67bd8dc213a858bd41fa337d"
+                              ]
                             }
                           }
                         },
@@ -3263,7 +3187,11 @@
                           "items": {
                             "type": "string"
                           },
-                          "example": ["7e1d3a9c8f244eb7a65fc230","a9d3e672bf1c45809e7a2d3f","c8b92d4f3a5e17f6801d4c29"]
+                          "example": [
+                            "7e1d3a9c8f244eb7a65fc230",
+                            "a9d3e672bf1c45809e7a2d3f",
+                            "c8b92d4f3a5e17f6801d4c29"
+                          ]
                         },
                         "is_verified": {
                           "type": "boolean",
@@ -3573,6 +3501,473 @@
         }
       }
     },
+    "/api/v1/knowledge-base/{newKnowledgeBase_id}": {
+      "parameters": [
+        {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "description": "Bearer token for authentication",
+          "schema": {
+            "type": "string",
+            "default": "Bearer "
+          },
+          "example": "Bearer <token>"
+        },
+        {
+          "name": "newKnowledgeBase_id",
+          "in": "path",
+          "required": true,
+          "description": "The ID of the knowledge base to update",
+          "schema": {
+            "type": "string",
+            "example": "682d96b55a99247b2f6ca029"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get Knowledgebase",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Knowledge base retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates if the request was successful",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A message describing the result",
+                      "example": "Knowledge base retrieved successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "Unique identifier for the knowledge base",
+                          "example": "682d96b55a99247b2f6ca029"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Name of the knowledge base",
+                          "example": "Testing File 1"
+                        },
+                        "file_name": {
+                          "type": "string",
+                          "description": "Name of the uploaded file",
+                          "example": "hotel_booking_knowledge_base.pdf"
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Description of the knowledge base",
+                          "example": "demo hotel booking knowledge base file"
+                        },
+                        "similarity_top_k": {
+                          "type": "string",
+                          "description": "Number of similar items to retrieve",
+                          "example": "10"
+                        },
+                        "status": {
+                          "type": "string",
+                          "description": "Current status of the knowledge base",
+                          "example": "processing"
+                        },
+                        "vector_id": {
+                          "type": "string",
+                          "description": "Unique identifier for the vector store",
+                          "example": "kb_682d96b55a99247b2f6ca029_20250521_090245"
+                        },
+                        "org_id": {
+                          "type": "string",
+                          "description": "Organization ID",
+                          "example": "681ca52f14144e87791de891"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Creation timestamp",
+                          "example": "2025-05-21T09:02:45.424000"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Last update timestamp",
+                          "example": "2025-05-21T09:02:45.424000"
+                        },
+                        "deleted_at": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "Deletion timestamp if deleted",
+                          "example": null
+                        },
+                        "is_deleted": {
+                          "type": "boolean",
+                          "description": "Whether the knowledge base is deleted",
+                          "example": false
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "ID of the user who created the knowledge base",
+                          "example": "68188d4c14144e87791de7d5"
+                        },
+                        "updated_by": {
+                          "type": "string",
+                          "description": "ID of the user who last updated the knowledge base",
+                          "example": "68188d4c14144e87791de7d5"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Knowledgebase",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the knowledge base",
+                    "example": "Testing File 1"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Description of the knowledge base",
+                    "example": "demo hotel booking knowledge base file"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Knowledge base updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates if the request was successful",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A message describing the result",
+                      "example": "Knowledge base updated successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "description": "Unique identifier for the knowledge base",
+                          "example": "682d96b55a99247b2f6ca029"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Name of the knowledge base",
+                          "example": "Testing File 1"
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Description of the knowledge base",
+                          "example": "demo hotel booking knowledge base file"
+                        },
+                        "similarity_top_k": {
+                          "type": "string",
+                          "description": "Number of similar items to retrieve",
+                          "example": "10"
+                        },
+                        "status": {
+                          "type": "string",
+                          "description": "Current status of the knowledge base",
+                          "example": "processing"
+                        },
+                        "vector_id": {
+                          "type": "string",
+                          "description": "Unique identifier for the vector store",
+                          "example": "kb_682d96b55a99247b2f6ca029_20250521_090245"
+                        },
+                        "org_id": {
+                          "type": "string",
+                          "description": "Organization ID",
+                          "example": "681ca52f14144e87791de891"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Creation timestamp",
+                          "example": "2025-05-21T09:02:45.424000"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Last update timestamp",
+                          "example": "2025-05-21T09:02:45.424000"
+                        },
+                        "deleted_at": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "Deletion timestamp if deleted",
+                          "example": null
+                        },
+                        "is_deleted": {
+                          "type": "boolean",
+                          "description": "Whether the knowledge base is deleted",
+                          "example": false
+                        },
+                        "created_by": {
+                          "type": "string",
+                          "description": "ID of the user who created the knowledge base",
+                          "example": "68188d4c14144e87791de7d5"
+                        },
+                        "updated_by": {
+                          "type": "string",
+                          "description": "ID of the user who last updated the knowledge base",
+                          "example": "68188d4c14144e87791de7d5"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "loc": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "msg": {
+                            "type": "string"
+                          },
+                          "input": {
+                            "type": "string"
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Knowledgebase",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Knowledge base deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates if the request was successful",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A message describing the result",
+                      "example": "Knowledge base deleted successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Data returned from the request",
+                      "example": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string",
+                      "example": "Method Not Allowed"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/api/v1/knowledge-base/all": {
+      "parameters": [
+        {
+          "name": "Authorization",
+          "in": "header",
+          "required": true,
+          "description": "Bearer token for authentication",
+          "schema": {
+            "type": "string",
+            "default": "Bearer "
+          },
+          "example": "Bearer <token>"
+        }
+      ],
+      "get": {
+        "summary": "Get All Knowledge Bases",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Knowledge base retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicates if the request was successful",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "A message describing the result",
+                      "example": "Knowledge base retrieved successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "knowledge_bases": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "_id": {
+                                "type": "string",
+                                "description": "Unique identifier for the knowledge base",
+                                "example": "682d96b55a99247b2f6ca029"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Name of the knowledge base",
+                                "example": "Testing File 1"
+                              },
+                              "description": {
+                                "type": "string",
+                                "description": "Description of the knowledge base",
+                                "example": "demo hotel booking knowledge base file"
+                              },
+                              "similarity_top_k": {
+                                "type": "string",
+                                "description": "Number of similar items to retrieve",
+                                "example": "10"
+                              },
+                              "status": {
+                                "type": "string",
+                                "description": "Current status of the knowledge base",
+                                "example": "processing"
+                              },
+                              "vector_id": {
+                                "type": "string",
+                                "description": "Unique identifier for the vector store",
+                                "example": "kb_682d96b55a99247b2f6ca029_20250521_090245"
+                              },
+                              "org_id": {
+                                "type": "string",
+                                "description": "Organization ID",
+                                "example": "681ca52f14144e87791de891"
+                              },
+                              "created_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Creation timestamp",
+                                "example": "2025-05-21T09:02:45.424000"
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "format": "date-time",
+                                "description": "Last update timestamp",
+                                "example": "2025-05-21T09:02:45.424000"
+                              },
+                              "deleted_at": {
+                                "type": "string",
+                                "nullable": true,
+                                "description": "Deletion timestamp if deleted",
+                                "example": null
+                              },
+                              "is_deleted": {
+                                "type": "boolean",
+                                "description": "Whether the knowledge base is deleted",
+                                "example": false
+                              },
+                              "created_by": {
+                                "type": "string",
+                                "description": "ID of the user who created the knowledge base",
+                                "example": "68188d4c14144e87791de7d5"
+                              },
+                              "updated_by": {
+                                "type": "string",
+                                "description": "ID of the user who last updated the knowledge base",
+                                "example": "68188d4c14144e87791de7d5"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+
     "/api/v1/phone-numbers/sync": {
       "parameters": [
         {
@@ -4096,7 +4491,10 @@
                                 "items": {
                                   "type": "string"
                                 },
-                                "example": ["67a6085623d73e2e471fe548", "67a6085623d73e2e471fe549"]
+                                "example": [
+                                  "67a6085623d73e2e471fe548",
+                                  "67a6085623d73e2e471fe549"
+                                ]
                               }
                             }
                           }
@@ -4568,7 +4966,10 @@
                           "items": {
                             "type": "string"
                           },
-                          "example": ["67a6085623d73e2e471fe548", "67a6085623d73e2e471fe549"]
+                          "example": [
+                            "67a6085623d73e2e471fe548",
+                            "67a6085623d73e2e471fe549"
+                          ]
                         }
                       }
                     }
@@ -4759,4 +5160,3 @@
     }
   }
 }
-

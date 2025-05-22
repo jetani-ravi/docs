@@ -79,7 +79,11 @@
               {
                 "group": "Knowledge Base",
                 "pages": [
-                  "api-reference/endpoint/knowledge-base/create-knowledge-base"
+                  "api-reference/endpoint/knowledge-base/create-knowledge-base",
+                  "api-reference/endpoint/knowledge-base/get-knowledge-base",
+                  "api-reference/endpoint/knowledge-base/update-knowledge-base",
+                  "api-reference/endpoint/knowledge-base/list-knowledge-base",
+                  "api-reference/endpoint/knowledge-base/delete-knowledge-base"
                 ]
               },
               {
