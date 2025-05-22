@@ -1,38 +1,44 @@
 ---
-title: 'Introduction'
-description: 'Introduction to the Voice Nova API and how to get started'
+title: "Introduction"
+description: "Introduction to the Voice Nova API and how to get started"
 ---
 
 <Note>
-  Welcome to the Voice Nova API documentation! Here you'll find everything you need to integrate Voice Nova's AI-powered voice automation into your applications and workflows.
+  Welcome to the Voice Nova API documentation\! Here you'll find everything you need to integrate Voice Nova's AI-powered voice automation into your applications and workflows.
 </Note>
 
 ## What is the Voice Nova API?
 
 The Voice Nova API allows you to programmatically create, manage, and deploy intelligent voice agents for your business. Use our endpoints to automate calls, manage agent templates, retrieve analytics, and more.
 
-<Card
-  title="Voice Nova OpenAPI Specification"
-  icon="phone"
-  href="https://github.com/your-org/voice-nova-openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+<Info>
+  You must have a valid Voice Nova account to generate and use APIs
+</Info>
 
-## Authentication
+## How to create Api key
 
-All API endpoints require authentication using Bearer tokens. You can generate and manage your API keys in your Voice Nova dashboard.
+### 1. Go to the  API keys  tab in the Menu and Click on **Create API key.**
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+![Createapikey Pn](/images/createapikey.png)
+
+### 2. Enter API Key name and select Expiration
+
+![Apikeyform Pn](/images/apikeyform.png)
+
+### 3. API Key generated
+
+![Createdapi Pn](/images/createdapi.png)
+
+<Info>
+  The API Key will be shown only once. Hence, please save it somewhere secure.
+</Info>
+
+## Using the API Key
+
+All API endpoints require authentication using API Key. You can generate and manage your API keys in your Voice Nova dashboard.
 
 Include your API key in the `Authorization` header of every request:
 
-```http
-Authorization: Bearer <BEARER_TOKEN> 
+```json
+Authorization: Bearer <api_key>
 ```
