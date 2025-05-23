@@ -115,7 +115,7 @@ When you include variables in your agent prompt, they will automatically be inje
 
 <CodeGroup>
 
-``` agent_prompt
+```agent_prompt agent_prompt
 This is your agent Sam and you're speaking to {customer_name}.
 Please have a frienly conversation with the customer.
 
@@ -125,15 +125,95 @@ The call's unique id is "{call_sid}".
 The customer's phone number is "{to_number}".
 ```
 
-``` custom_function 
+
+```json custom_function
+ {
+    "name": "get_product_details",
+    "description": "Use this tool to fetch product details",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "to_number": {
+          "type": "string",
+          "description": "This is customer's phone number"
+        },
+        "agent_id": {
+          "type": "string",
+          "description": "This is the agent_id"
+        },
+        "customer_name": {
+          "type": "string",
+          "description": "This is name of the customer"
+        },
+        "customer_address": {
+          "type": "string",
+          "description": "This is name of the customer"
+        }
+      }
+    },
+    "key": "custom_task",
+    "value": {
+      "method": "GET",
+      "param": {
+        "to_number": "%(to_number)s",
+        "agent_id": "%(agent_id)s",
+        "customer_name": "%(customer_name)s",
+        "customer_address": "%(customer_address)s"
+      },
+      "url": "https://my-api-dev.xyz",
+      "api_token": 'Bearer ***'
+    }
+  }
 ```
 
 
-``` injected_call_params
+```json injected_call_params
+  {
+    "to_number": "+19898989898", // automatically injected
+    "customer_name": "Bruce Lee", // passed via triggering the call
+    "agent_id": "7d86b904-da64-4b8e-8f51-6fef2c630380" // automatically injected
+  }
 ```
 
 
-``` final_custom_function
+```json final_custom_function
+ {
+    "name": "get_product_details",
+    "description": "Use this tool to fetch product details",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "to_number": {
+          "type": "string",
+          "description": "This is customer's phone number"
+        },
+        "agent_id": {
+          "type": "string",
+          "description": "This is the agent_id"
+        },
+        "customer_name": {
+          "type": "string",
+          "description": "This is name of the customer"
+        },
+        "customer_address": {
+          "type": "string",
+          "description": "This is name of the customer"
+        }
+      }
+    },
+    "key": "custom_task",
+    "value": {
+      "method": "GET",
+      "param": {
+        "to_number": "+19898989898", // substituted via passing variables
+        "agent_id": "7d86b904-da64-4b8e-8f51-6fef2c630380", // substituted via passing variables
+        "customer_name": "Bruce Lee", // substituted via passing variables
+        "customer_address": "%(customer_address)s" // unchanged as this wasn't injected. this will be computed in realtime via the LLM model
+      },
+      "url": "https://my-api-dev.xyz",
+      "api_token": 'Bearer ***'
+    }
+  }
 ```
 
 </CodeGroup>
