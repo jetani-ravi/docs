@@ -80,7 +80,16 @@
               "pages/phone-numbers",
               "pages/provider-and-services",
               "pages/adding-variables",
-              "pages/extract-structured-data"
+              "pages/extract-structured-data",
+              {
+                "group": "Tool Calling",
+                "pages": [
+                  "pages/tool-calling/introduction",
+                  "pages/tool-calling/transfer-calls",
+                  "pages/tool-calling/check-calendar-slots",
+                  "pages/tool-calling/book-calendar-slots"
+                ]
+               }
             ]
           },
           {
