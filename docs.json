@@ -89,8 +89,8 @@
               {
                 "group": "Phone Number",
                 "pages": [
-                  "api-reference/endpoint/phoneNumber/sync-phoneNumber",
-                  "api-reference/endpoint/phoneNumber/available-phonuNumber"
+                  "api-reference/endpoint/phone-number/sync-phone-number",
+                  "api-reference/endpoint/phone-number/available-phone-number"
                 ]
               },
               {
