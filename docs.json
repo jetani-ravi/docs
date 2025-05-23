@@ -77,7 +77,7 @@
                 ]
               },
               {
-                "group": "Knowledge Base",
+                "group": "Knowledgebase",
                 "pages": [
                   "api-reference/endpoint/knowledge-base/create-knowledge-base",
                   "api-reference/endpoint/knowledge-base/get-knowledge-base",

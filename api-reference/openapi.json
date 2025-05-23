@@ -332,38 +332,32 @@
                         "type": "object",
                         "properties": {
                           "type": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "missing"
                           },
                           "loc": {
                             "type": "array",
                             "items": {
-                              "type": "string"
+                              "type": "string",
+                              "example": "body"
                             }
                           },
                           "msg": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "Field required"
                           },
                           "input": {
-                            "nullable": true
+                            "nullable": true,
+                            "example": null
                           },
                           "url": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "https://errors.pydantic.dev/2.5/v/missing"
                           }
                         }
                       }
                     }
                   }
-                },
-                "example": {
-                  "detail": [
-                    {
-                      "type": "missing",
-                      "loc": ["body"],
-                      "msg": "Field required",
-                      "input": null,
-                      "url": "https://errors.pydantic.dev/2.5/v/missing"
-                    }
-                  ]
                 }
               }
             }
@@ -374,6 +368,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": ["agent_prompts", "agent_config"],
                 "properties": {
                   "agent_prompts": {
                     "type": "object",
@@ -1175,9 +1170,6 @@
                       "example": "Method Not Allowed"
                     }
                   }
-                },
-                "example": {
-                  "detail": "Method Not Allowed"
                 }
               }
             }
@@ -1217,6 +1209,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "required": ["agent_prompts", "agent_config"],
                 "properties": {
                   "agent_config": {
                     "type": "object",
@@ -2102,60 +2095,30 @@
                         "type": "object",
                         "properties": {
                           "type": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "missing"
                           },
                           "loc": {
                             "type": "array",
                             "items": {
-                              "type": "string"
+                              "type": "string",
+                              "example": "body"
                             }
                           },
                           "msg": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "Field required"
                           },
                           "input": {
-                            "nullable": true
+                            "nullable": true,
+                            "example": null
                           },
                           "url": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "https://errors.pydantic.dev/2.5/v/missing"
                           }
                         }
                       }
-                    }
-                  }
-                },
-                "example": {
-                  "detail": [
-                    {
-                      "type": "missing",
-                      "loc": ["body"],
-                      "msg": "Field required",
-                      "input": null,
-                      "url": "https://errors.pydantic.dev/2.5/v/missing"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "405": {
-            "description": "Method Not Allowed",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Method Not Allowed"
-                    },
-                    "data": {
-                      "type": "object",
-                      "example": null
                     }
                   }
                 }
@@ -2176,14 +2139,17 @@
                   "type": "object",
                   "properties": {
                     "success": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "example": true
                     },
                     "message": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "Agent deleted successfully"
                     },
                     "data": {
                       "nullable": true,
-                      "type": "object"
+                      "type": "object",
+                      "example": null
                     }
                   }
                 }
@@ -2648,21 +2614,19 @@
           {
             "name": "user_id",
             "in": "query",
-            "required": true,
             "description": "ID of the user for whom the call is initiated",
-            "example": "{{user_id}}",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "user_id_1234567890abcdef"
             }
           },
           {
             "name": "org_id",
             "in": "query",
-            "required": true,
             "description": "ID of the organization",
-            "example": "{{org_id}}",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "org_id_1234567890abcdef"
             }
           }
         ],
@@ -2728,38 +2692,32 @@
                         "type": "object",
                         "properties": {
                           "type": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "missing"
                           },
                           "loc": {
                             "type": "array",
                             "items": {
-                              "type": "string"
+                              "type": "string",
+                              "example": "body"
                             }
                           },
                           "msg": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "Field required"
                           },
                           "input": {
-                            "nullable": true
+                            "nullable": true,
+                            "example": null
                           },
                           "url": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "https://errors.pydantic.dev/2.5/v/missing"
                           }
                         }
                       }
                     }
                   }
-                },
-                "example": {
-                  "detail": [
-                    {
-                      "type": "missing",
-                      "loc": ["body"],
-                      "msg": "Field required",
-                      "input": null,
-                      "url": "https://errors.pydantic.dev/2.5/v/missing"
-                    }
-                  ]
                 }
               }
             }
@@ -2778,7 +2736,7 @@
                   },
                   "recipient_phone_number": {
                     "type": "string",
-                    "description": "Phone number of the recipient",
+                    "description": "Phone number of the recipient with country code",
                     "example": "+919876543210"
                   }
                 },
@@ -3176,9 +3134,6 @@
                       "example": "Method Not Allowed"
                     }
                   }
-                },
-                "example": {
-                  "detail": "Method Not Allowed"
                 }
               }
             }
@@ -3431,10 +3386,10 @@
         }
       }
     },
-    "/api/v1/user/{newUser_id}": {
+    "/api/v1/user/{user_id}": {
       "parameters": [
         {
-          "name": "newUser_id",
+          "name": "user_id",
           "in": "path",
           "required": true,
           "description": "ID of the user",
@@ -3578,38 +3533,32 @@
                         "type": "object",
                         "properties": {
                           "type": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "missing"
                           },
                           "loc": {
                             "type": "array",
                             "items": {
-                              "type": "string"
+                              "type": "string",
+                              "example": "body"
                             }
                           },
                           "msg": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "Field required"
                           },
                           "input": {
-                            "nullable": true
+                            "nullable": true,
+                            "example": null
                           },
                           "url": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "https://errors.pydantic.dev/2.5/v/missing"
                           }
                         }
                       }
                     }
                   }
-                },
-                "example": {
-                  "detail": [
-                    {
-                      "type": "missing",
-                      "loc": ["body"],
-                      "msg": "Field required",
-                      "input": null,
-                      "url": "https://errors.pydantic.dev/2.5/v/missing"
-                    }
-                  ]
                 }
               }
             }
@@ -3793,45 +3742,32 @@
                         "type": "object",
                         "properties": {
                           "type": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "missing"
                           },
                           "loc": {
                             "type": "array",
                             "items": {
-                              "type": "string"
+                              "type": "string",
+                              "example": "body"
                             }
                           },
                           "msg": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "Field required"
                           },
                           "input": {
-                            "nullable": true
+                            "nullable": true,
+                            "example": null
                           },
                           "url": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "https://errors.pydantic.dev/2.5/v/missing"
                           }
                         }
                       }
                     }
                   }
-                },
-                "example": {
-                  "detail": [
-                    {
-                      "type": "missing",
-                      "loc": ["body", "file"],
-                      "msg": "Field required",
-                      "input": null,
-                      "url": "https://errors.pydantic.dev/2.5/v/missing"
-                    },
-                    {
-                      "type": "missing",
-                      "loc": ["body", "name"],
-                      "msg": "Field required",
-                      "input": null,
-                      "url": "https://errors.pydantic.dev/2.5/v/missing"
-                    }
-                  ]
                 }
               }
             }
@@ -3966,6 +3902,22 @@
                 }
               }
             }
+          },
+          "405":{
+            "description": "Method Not Allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string",
+                      "example": "Method Not Allowed"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -3977,7 +3929,6 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name"],
                 "properties": {
                   "name": {
                     "type": "string",
@@ -4103,22 +4054,27 @@
                         "type": "object",
                         "properties": {
                           "type": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "missing"
                           },
                           "loc": {
                             "type": "array",
                             "items": {
-                              "type": "string"
+                              "type": "string",
+                              "example": "body"
                             }
                           },
                           "msg": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "Field required"
                           },
                           "input": {
-                            "type": "string"
+                            "type": "string",
+                            "example": null
                           },
                           "url": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "https://errors.pydantic.dev/2.5/v/missing"
                           }
                         }
                       }
@@ -4196,7 +4152,7 @@
         }
       ],
       "get": {
-        "summary": "List Knowledge Bases",
+        "summary": "List Knowledgebases",
         "parameters": [],
         "responses": {
           "200": {
@@ -4324,15 +4280,6 @@
       "post": {
         "summary": "Sync Numbers",
         "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Phone numbers synced successfully",
@@ -4535,7 +4482,7 @@
         }
       ],
       "get": {
-        "summary": "Available Numbers",
+        "summary": " Get Available Numbers",
         "parameters": [
           {
             "name": "pattern",
@@ -4642,32 +4589,6 @@
                       }
                     }
                   }
-                },
-                "example": {
-                  "success": true,
-                  "message": "Available phone numbers retrieved successfully",
-                  "data": [
-                    {
-                      "phone_number": "+12345678901",
-                      "location": "CA, US",
-                      "capabilities": {
-                        "voice": true,
-                        "SMS": true,
-                        "MMS": true
-                      },
-                      "provider": "twilio"
-                    },
-                    {
-                      "phone_number": "+19876543210",
-                      "location": "NY, US",
-                      "capabilities": {
-                        "voice": true,
-                        "SMS": true,
-                        "MMS": true
-                      },
-                      "provider": "twilio"
-                    }
-                  ]
                 }
               }
             }
@@ -5106,7 +5027,6 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name", "email"],
                 "properties": {
                   "name": {
                     "type": "string",
@@ -5260,42 +5180,51 @@
               }
             }
           },
-          "400": {
-            "description": "Bad request - Invalid input data",
+          "422": {
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Invalid input data"
+                    "detail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "loc": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "msg": {
+                            "type": "string"
+                          },
+                          "input": {
+                            "nullable": true
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        }
+                      }
                     }
                   }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Organization not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": false
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Organization not found"
+                },
+                "example": {
+                  "detail": [
+                    {
+                      "type": "missing",
+                      "loc": ["body"],
+                      "msg": "Field required",
+                      "input": null,
+                      "url": "https://errors.pydantic.dev/2.5/v/missing"
                     }
-                  }
+                  ]
                 }
               }
             }
