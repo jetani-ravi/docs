@@ -78,7 +78,8 @@
               "pages/voice-customization",
               "pages/knowledge-base",
               "pages/phone-numbers",
-              "pages/provider-and-services"
+              "pages/provider-and-services",
+              "pages/adding-variables"
             ]
           },
           {

@@ -1,0 +1,72 @@
+---
+title: "Add Variables"
+description: "Leverage contextual variables in Voice Nova to deliver tailored, dynamic, and meaningful voice interactions."
+---
+
+### Injecting Current Time
+
+Voice Nova automatically includes the current date and time in a conversation, aligned with the user’s local timezone.
+
+While Voice Nova attempts to detect the timezone automatically during calls, passing it explicitly ensures greater accuracy.
+
+| Name     | Description                                                                                                   |
+| :------- | :------------------------------------------------------------------------------------------------------------ |
+| timezone | Name of the timezone based on the [tz database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) |
+
+---
+
+### Built-in Context Variables
+
+The following system-defined variables are always available in the context of a Voice Nova conversation:
+
+| Variable       | Description                                                                        |
+| :------------- | :--------------------------------------------------------------------------------- |
+| `agent_id`     | Unique identifier of the AI agent.                                                 |
+| `execution_id` | Unique identifier of the specific Voice Nova conversation or call.                 |
+| `call_sid`     | Call ID from the telephony provider (e.g., Twilio, Plivo, Vonage).                 |
+| `from_number`  | The caller’s number in inbound calls, or your agent’s number in outbound calls.    |
+| `to_number`    | The recipient’s number in outbound calls, or your agent’s number in inbound calls. |
+
+These built-in values can be injected directly into prompts or function calls for enhanced clarity or backend use.
+
+### Example: Using Default Variables in Prompts
+
+You can use default variables in your prompt like this:
+
+```
+This is your agent Sam. Please have a friendly conversation with the customer.
+
+Please note:
+The agent has a unique id which is "{agent_id}".
+The call's unique id is "{call_sid}".
+The customer's phone number is "{to_number}".
+```
+
+At runtime, the system will replace these placeholders with actual values. For example:
+
+```
+This is your agent Sam. Please have a friendly conversation with the customer.
+
+Please note:
+The agent has a unique id which is "4a8135ce-45fc-4a11-9a33-140fe1ed8cc5".
+The call's unique id is "PXNEJUFEWUEWHVEWHQACVE".
+The customer's phone number is "+19898989898".
+```
+
+### Custom Variables and Dynamic Context
+
+In addition to the default set, you can define your own custom variables. Just wrap the variable name in curly braces `{}` and pass corresponding values at call time.
+
+#### Example Prompt with Custom Variables
+
+```
+This is your agent Sam speaking.
+
+May I confirm if your name is {customer_name} and you called us on
+{last_contacted_on} to enquire about your order item {product_name}?
+
+Use the call's id which is {call_sid} to automatically transfer the call to a human when the user asks.
+```
+
+**Conclusion**\
+Contextual variables—both default and custom—enable  Voice Nova AI agents to deliver personalized and accurate voice conversations. By embedding real-time, user-specific information into each interaction, your AI agents become smarter, more responsive, and more human-like.
