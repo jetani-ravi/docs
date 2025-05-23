@@ -87,7 +87,8 @@
                   "pages/tool-calling/introduction",
                   "pages/tool-calling/transfer-calls",
                   "pages/tool-calling/check-calendar-slots",
-                  "pages/tool-calling/book-calendar-slots"
+                  "pages/tool-calling/book-calendar-slots",
+                  "pages/tool-calling/custom-function-call"
                 ]
                }
             ]

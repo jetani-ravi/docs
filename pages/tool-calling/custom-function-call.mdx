@@ -1,0 +1,139 @@
+---
+title: "Custom Function Calls"
+description: "Learn how to design and integrate custom function calls within Voice Nova agents to enhance their capabilities."
+---
+
+![Custom Pn](/images/custom.png)
+
+You can design your own functions and use them in Bolna. Custom functions follow the [**OpenAI specifications**](https://platform.openai.com/docs/guides/function-calling).
+
+You can paste your valid JSON schema and define your own custom function.
+
+![Custom Function Pn](/images/custom-function.png)
+
+### **Writing Your Own Custom Function – Step-by-Step**
+
+To define a custom function:
+
+1. **Set the function key to** `custom_task`.
+2. **Provide a clear and descriptive explanation** of what the function does. This helps the model know when to trigger it.
+3. **Define your parameters** using Python-style format specifiers.
+
+| **Parameter** | **Type** | **Variable Format** |
+| :------------ | :------- | :------------------ |
+| `user_name`   | `str`    | `%(user_name)s`     |
+| `user_age`    | `int`    | `%(user_age)i`      |
+| `cost`        | `float`  | `%(cost)f`          |
+
+**More examples of writing custom function calls**
+
+<AccordionGroup>
+  <Accordion title="Function for GET Requests">
+    ```
+    curl
+    --location 'https://my-api-dev.xyz?customer_phone=+19898989898' \
+    --header 'Authorization: Bearer ***'
+    ```
+
+    Define parameters and endpoints for retrieving data.
+
+    ```json
+    {
+      "name": "get_product_details",
+      "description": "Use this tool to fetch product details",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "customer_phone": {
+            "type": "string",
+            "description": "This is customer's phone number"
+          }
+        }
+      },
+      "key": "custom_task",
+      "value": {
+        "method": "GET",
+        "param": {
+          "customer_phone": "%(customer_phone)s"
+        },
+        "url": "https://my-api-dev.xyz",
+        "api_token": 'Bearer ***'
+      }
+    }
+    ```
+  </Accordion>
+  <Accordion title="Function for POST Requests">
+    ```
+    curl --location 'https://my-api-dev.xyz/v1/store_rating' \
+    --header 'Content-Type: application/json' \
+    --header 'Authorization: Bearer ***' \
+    --data '{
+    "customer_id": "134532",
+    "rating": "2.3"
+    }'
+    ```
+
+    Structure functions to send data or trigger backend actions dynamically.
+
+    ```json
+    {
+      "name": "save_feedback",
+      "description": "Use this tool to save customer's feedback",
+      "parameters": {
+        "type": "object",
+        "properties": {Working with Dynamic Context and VariablesWorking with Dynamic Context and Variables
+          "customer_id": {
+            "type": "string",
+            "description": "This is customer's ID"
+          },
+          "rating": {
+            "type": "string",
+            "description": "This is the rating provided by the customer"
+          }
+        }
+      },
+      "key": "custom_task",
+      "value": {
+        "method": "POST",
+        "param": {
+          "customer_id": "%(customer_id)s"
+          "rating": "%(rating)s"
+        },
+        "url": "https://my-api-dev.xyz/v1/store_rating",
+        "api_token": 'Bearer ***'
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Working with Dynamic Context and Variables
+
+When you include variables in your agent prompt, they will automatically be injected into your custom function. These values are not re-queried by the model, as they are already available at runtime.
+
+**Agent Prompt Example:**
+
+<CodeGroup>
+
+``` agent_prompt
+This is your agent Sam and you're speaking to {customer_name}.
+Please have a frienly conversation with the customer.
+
+Please note:
+The agent has a unique id which is "{agent_id}".
+The call's unique id is "{call_sid}".
+The customer's phone number is "{to_number}".
+```
+
+``` custom_function 
+```
+
+
+``` injected_call_params
+```
+
+
+``` final_custom_function
+```
+
+</CodeGroup>
