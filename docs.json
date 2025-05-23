@@ -91,7 +91,8 @@
                   "pages/tool-calling/custom-function-call"
                 ]
                },
-              "pages/implementing-guardrails" 
+              "pages/implementing-guardrails",
+              "pages/add-server-url"
             ]
           },
           {
