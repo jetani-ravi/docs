@@ -91,12 +91,7 @@
                   "pages/tool-calling/custom-function-call"
                 ]
                },
-              {
-            "group": "Implementing Guardrails",
-            "pages": [
-              "pages/implementing-guardrails"
-            ]
-          }
+              "pages/implementing-guardrails" 
             ]
           },
           {
