@@ -1,0 +1,52 @@
+---
+title: "Extract Structured Data "
+description: "Extract Structured Data from Conversations in Voice Nova AI agents. Learn how to analyze and utilize call details for better decision-making."
+---
+
+### Overview
+
+ Voice Nova AI allows you to extract key information from calls in a structured JSON format. By setting up an **Extraction Prompt**, your AI agent can pull out relevant data points during or after a conversation—providing clarity, improving workflows, and aiding in smarter business decisions.
+
+![Extract Data Pn](/images/extract-data.png)
+
+### How Data Extraction Works
+
+You define the data you want to capture using a custom extraction prompt. Once a call concludes,  Voice Nova AI automatically includes the extracted values in the `extracted_data` field within the call’s `execution` payload.
+
+This enables you to programmatically access structured information such as customer names, payment details, dates, or any custom-defined data point.
+
+### Example: Setup and Output
+
+**Extraction Prompt Example**
+
+```
+user_name : Yield the name of the user.
+payment_mode : If user is paying by cash, yield cash. If they are paying by card yield card. Else yield NA
+payment_date: yield payment date by the user in YYYY-MM-DD format
+```
+
+Sample Output in JSON Response
+
+```
+...
+...
+"extracted_data": {
+  "user_name": "Bruce Lee",
+  "payment_mode": "paypal",
+  "payment_date": "2024-12-30"
+},
+...
+...
+```
+
+With this setup, your system automatically receives structured insights without manual transcription or tagging.
+
+### Benefits of Structured Data Extraction
+
+- **Automation:** Eliminate manual post-call analysis.
+- **Scalability:** Extract consistent data across hundreds or thousands of conversations.
+- **Integration:** Feed clean data directly into CRMs, analytics tools, or databases.
+- **Decision-Making:** Use call-derived insights to inform business strategy.
+
+**Conclusion**\
+ Voice Nova AI empowers you to convert unstructured conversation data into structured JSON outputs. By using extraction prompts, you can efficiently capture the most important details from each call—making it easier to track customer behavior, process transactions, and optimize your AI-driven workflows.

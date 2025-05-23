@@ -79,7 +79,8 @@
               "pages/knowledge-base",
               "pages/phone-numbers",
               "pages/provider-and-services",
-              "pages/adding-variables"
+              "pages/adding-variables",
+              "pages/extract-structured-data "
             ]
           },
           {
